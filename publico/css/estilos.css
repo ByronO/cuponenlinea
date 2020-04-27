@@ -1,0 +1,242 @@
+.body{
+    font: 400 15px Lato, sans-serif;
+    line-height: 1.8;
+    color: #818181;
+}
+
+
+.jumbotron{
+    font-family: 'Tangerine', cursive;
+    background-color:  rgba(0, 66, 1, 1);
+    background-size: cover;
+    color: rgb(255, 255, 255);
+    padding: 100px 25px;
+
+}
+
+.container-fluid{
+    padding: 60px 50px;
+}
+
+.background-grey{
+    background-color: #ececec;
+
+}
+
+.navbar{
+    margin-bottom: 0px;
+    background-color: rgba(0, 1, 1, 0.704);
+    color: #a34100 !important;
+    z-index: 9999;
+    border: 0;
+    font-size: 15px !important;
+    line-height: 1.4 !important;
+    letter-spacing: 4px;
+    border-radius: 0;
+}
+
+.navbar li a, .navbar .nav-brand{
+    color: #ffffff !important;
+    height: auto;
+}
+
+div#menu li a{
+    font-size: 15px !important;
+    background-color: rgba(0, 66, 1, 0.404);
+}
+
+div#menu li a:hover{
+    transition: background-color 0.3s ease; !important;
+    font-size: 15px !important;
+}
+
+.navbar-nav li a:hover, .navbar-nav li a:active{
+    -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+    -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+    -o-transition: font-size 0.3s ease, background-color 0.3s ease;
+    -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+    transition: font-size 0.3s ease, background-color 0.3s ease;
+    font-size: 19px;
+}
+
+.contenedor{
+    width: 100%;
+}
+
+.fondo-gris{
+    background-color: gray;
+}
+
+div#u{
+    width: 30%;
+}
+
+button#btnMenu{
+    background-color: rgba(110, 66, 1, 0);
+}
+
+button#btnMenu:hover{
+    background-color: rgba(71, 43, 1, 0.7) !important;
+}
+
+.icon-bar{
+    color: #ececec;
+}
+
+ul#menu{
+    background-color: rgba(0, 0, 1, 0.704);
+    width: 60%;
+    transition: none !important;
+    font-size: 15px !important;
+}
+
+
+ul#menu li a{
+    -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+    -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+    -o-transition: font-size 0.3s ease, background-color 0.3s ease;
+    -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+    transition: font-size 0.3s ease, background-color 0.3s ease;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+img{
+    border-radius: 10%;
+}
+
+a#contacto1,#inicio1,#res,#carrito{
+    background-color: rgba(110, 66, 1, 0);
+    cursor: pointer;
+}
+
+h2#titulo{
+    font-size: 70px;
+}
+
+h2{
+    font-size: 50px;
+    color: #303030;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+h3{
+    font-family: 'Lobster Two', cursive;
+    font-size: 25px;
+}
+
+h4{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 19px;
+    line-height: 1.35em;
+    color: #303030;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+
+p{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+button{
+    margin-top: 15px;
+}
+
+div#contenido p{
+    margin-top: 15px;
+}
+
+div#contenido div{
+    margin-top: 15px;
+}
+
+div#contenido h4{
+    margin-top: 15px;
+}
+
+div#inicio h2{
+    color: #f6f6f6;
+}
+
+div#lista a{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: rgb(29, 29, 29);
+}
+
+div#listaRestaurantes {
+    font-size: 18px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+div#listaRestaurantes a {
+    border-bottom: 1px solid #ccc;
+}
+
+div#listaRestaurantes a {
+    text-decoration: none;
+    display: block;
+    width: 100%;
+
+    -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+    -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+    -o-transition: font-size 0.3s ease, background-color 0.3s ease;
+    -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+    transition: font-size 0.3s ease, background-color 0.3s ease;
+}
+
+button#confirmar{
+    padding: 7px;
+    width: 50%;
+    margin-bottom: 10px;
+    display: block;
+}
+
+input[type=text]:focus{
+    background-color: rgba(221, 221, 221, 0.568);
+    outline: none;
+}
+
+@media screen and (max-width: 1025px){
+    img#Logo{
+        width: 300px;
+        height: 300px;
+    }
+
+    div#contenido{
+        margin-outside: 0;
+    }
+
+    div#form .form-control{
+        width: 100%;
+    }
+
+    div#fechas .col-sm-4{
+        width: 100%;
+    }
+
+    div#lista{
+        width: max-content;
+    }
+}
+
+@media screen and (max-width: 900px){
+    img#Logo{
+        width: 200px;
+        height: 200px;
+    }
+
+    div#contenido{
+        border: 0;
+    }
+
+    div#lista{
+        width: 100%;
+    }
+    div#principal{
+        width: 100%;
+    }
+}
+

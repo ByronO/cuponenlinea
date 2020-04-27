@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>ForceDirected - Force Directed Static Graph</title>
+
+<!-- CSS Files -->
+<link type="text/css" href="css/base.css" rel="stylesheet" />
+<link type="text/css" href="css/ForceDirected.css" rel="stylesheet" />
+
+<!-- JIT Library File -->
+<script language="javascript" type="text/javascript" src="js/jit-yc.js"></script>
+<!-- Example File -->
+<script language="javascript" type="text/javascript" src="js/example1.js"></script>
+</head>
+
+<body onload="init();">
+	<div id="container">
+		
+		<!-- Imprime el ID y nombre del nodo -->
+		<div id="left-container">
+			<div id="id-list"></div>
+		</div>
+		
+		<!-- Imprime el # conexciones hijos del nodo -->
+		<div id="center-container">
+			<div id="infovis"></div>    
+		</div>
+		
+		<!-- Imprime fuera del cuadro el detalle completo -->
+		<div id="right-container">
+			<div id="inner-details"></div>
+		</div>
+		
+		<!-- Imprime el % de carga inicial -->
+		<div id="log"></div>
+	</div>
+</body>
+</html>
