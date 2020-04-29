@@ -15,7 +15,7 @@ class EmpresacategoriaControlador{
         if(isset($_POST['create'])){
             if(isset($_POST['idcategoria']) && isset($_POST['nombre'])){
                
-        $empresa = new empresacategoria(0,$_POST['idcategoria'],1, $_POST['nombre']);
+        $empresa = new empresacategoria(0,$_POST['idcategoria'],1, $_POST['nombre'],$_POST['acronimo']);
                 
                 if($empresacategoriaData->insertar($empresa)){
                     $data['mensaje'] = 'Categoria creada correctamente';
@@ -36,7 +36,7 @@ class EmpresacategoriaControlador{
         
         if(isset($_POST['id']) && isset($_POST['idcategoria']) && isset($_POST['nombre'])){
 
-        $empresacategoria = new empresacategoria($_POST['id'], $_POST['idcategoria'],1, $_POST['nombre']);
+        $empresacategoria = new empresacategoria($_POST['id'], $_POST['idcategoria'],1, $_POST['nombre'],$_POST['acronimo']);
 
             if($empresacategoriaData->actualizar($empresacategoria)){
                 $data['mensaje'] = 'Categoria actualizada correctamente';

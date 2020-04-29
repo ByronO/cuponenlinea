@@ -32,29 +32,30 @@ class usuarioData extends Conexion {
     
 
     public function obtenerTodos() {
-        $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
-        
-        $consulta = $mysql->prepare("SELECT empresaid,empresacodigo,empresanombre,empresaubicacion,empresacategoria FROM " . TBL_EMPRESA . " WHERE empresaestado=1;");
-        
-        $consulta->execute();
-        
-        $resultado = $consulta->get_result();
-        
-        $consulta->close();
-        
-        $empresas = [];
-        while ($fila = $resultado->fetch_array()) {
-            $empresa = new empresa($fila['empresaid'], $fila['empresacodigo'], $fila['empresanombre'],  $fila['empresaubicacion'],1, $fila['empresacategoria']);
 
-            array_push($empresas, $empresa);
-        }
-      return $empresas;
-         
-    } // obtenerTodos
+      $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
+      
+      $consulta = $mysql->prepare("SELECT empresaid,empresacodigo,empresanombre,empresaubicacion,empresacategoria,empresacedulajuridica,empresasitioweb FROM " . TBL_EMPRESA . " WHERE empresaestado=1;");
+      
+      $consulta->execute();
+      
+      $resultado = $consulta->get_result();
+      
+      $consulta->close();
+      
+      $empresas = [];
+      while ($fila = $resultado->fetch_array()) {
+          $empresa = new empresa($fila['empresaid'], $fila['empresacodigo'], $fila['empresanombre'],$fila['empresaubicacion'],1, $fila['empresacategoria'],$fila['empresacedulajuridica'],$fila['empresasitioweb']);
+
+          array_push($empresas, $empresa);
+      }
+    return $empresas;
+       
+  } // obtenerTodos
     
     
     
 }
 ?>
 
-
+  

@@ -19,11 +19,12 @@ class empresacategoriaData extends Conexion {
     
         $codigo = $empresacategoria->getempresacategoriacodigo();
         $categoria = $empresacategoria->getempresacategorianombre();
+        $acronimo = $empresacategoria->getempresacategoriaacronimo();
        
         $consulta = 
         $mysql->prepare
-        ("INSERT INTO ". TBL_EMPRESACATEGORIA ."(empresacategoriaid,empresacategoriacodigo,empresacategoriaestado,empresacategorianombre) 
-        VALUES('$id','$codigo',1,'$categoria');");
+        ("INSERT INTO ". TBL_EMPRESACATEGORIA ."(empresacategoriaid,empresacategoriacodigo,empresacategoriaestado,empresacategorianombre,empresacategoriaacronimo) 
+        VALUES('$id','$codigo',1,'$categoria','$acronimo');");
 
         $resultado = $consulta->execute();
         
@@ -39,9 +40,9 @@ class empresacategoriaData extends Conexion {
         $id = $empresacategoria->getempresacategoriaid();
         $codigo = $empresacategoria->getempresacategoriacodigo();
         $nombre = $empresacategoria->getempresacategorianombre();
-        
+        $acronimo = $empresacategoria->getempresacategoriaacronimo();
       
-        $consulta = $mysql->prepare("UPDATE " . TBL_EMPRESACATEGORIA . " SET empresacategoriacodigo='$codigo', empresacategorianombre='$nombre' WHERE empresacategoriaid='$id'");
+        $consulta = $mysql->prepare("UPDATE " . TBL_EMPRESACATEGORIA . " SET empresacategoriacodigo='$codigo', empresacategorianombre='$nombre', empresacategoriaacronimo='$acronimo' WHERE empresacategoriaid='$id'");
  
         $resultado = $consulta->execute();
         
@@ -54,7 +55,7 @@ class empresacategoriaData extends Conexion {
       public function obtenerEmpresaId($id) {
         $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
         
-        $consulta = $mysql->prepare("SELECT empresacategoriaid,empresacategoriacodigo,empresacategorianombre FROM  " . TBL_EMPRESACATEGORIA . " WHERE empresacategoriaid=?");
+        $consulta = $mysql->prepare("SELECT empresacategoriaid,empresacategoriacodigo,empresacategorianombre,empresacategoriaacronimo FROM  " . TBL_EMPRESACATEGORIA . " WHERE empresacategoriaid=?");
         $consulta->bind_param("i", $id);
         
         $consulta->execute();
@@ -64,7 +65,7 @@ class empresacategoriaData extends Conexion {
         $consulta->close();
         
         if($fila = $resultado->fetch_assoc()) {
-        $empresacategoria = new empresacategoria($fila['empresacategoriaid'], $fila['empresacategoriacodigo'],1, $fila['empresacategorianombre']);
+        $empresacategoria = new empresacategoria($fila['empresacategoriaid'], $fila['empresacategoriacodigo'],1, $fila['empresacategorianombre'],$fila['empresacategoriaacronimo']);
             return $empresacategoria;
         }
         
@@ -74,7 +75,7 @@ class empresacategoriaData extends Conexion {
     public function obtenerTodos() {
         $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
         
-        $consulta = $mysql->prepare("SELECT empresacategoriaid,empresacategoriacodigo,empresacategorianombre FROM " . TBL_EMPRESACATEGORIA . " WHERE empresacategoriaestado=1;");
+        $consulta = $mysql->prepare("SELECT empresacategoriaid,empresacategoriacodigo,empresacategorianombre,empresacategoriaacronimo FROM " . TBL_EMPRESACATEGORIA . " WHERE empresacategoriaestado=1;");
         
         $consulta->execute();
         
@@ -84,7 +85,7 @@ class empresacategoriaData extends Conexion {
         
         $empresacategorias = [];
         while ($fila = $resultado->fetch_array()) {
-        $empresacategoria = new empresacategoria($fila['empresacategoriaid'], $fila['empresacategoriacodigo'],1, $fila['empresacategorianombre']);
+        $empresacategoria = new empresacategoria($fila['empresacategoriaid'], $fila['empresacategoriacodigo'],1, $fila['empresacategorianombre'],$fila['empresacategoriaacronimo']);
      
     array_push($empresacategorias, $empresacategoria);
         }
