@@ -40,7 +40,7 @@ class EmpresaControlador{
         if(isset($_POST['create'])){
             if(isset($_POST['idempresa']) && isset($_POST['nombre']) && isset($_POST['ubicacion'])){
                 
-                $empresa = new empresa(0,$_POST['idempresa'], $_POST['nombre'],$_POST['ubicacion'],1, $_POST['tipo']);
+                $empresa = new empresa(0,$_POST['idempresa'], $_POST['nombre'],$_POST['ubicacion'],1, $_POST['tipo'],$_POST['cedula'],$_POST['sitio']);
                 
                 if($empresaData->insertar($empresa)){
                     $data['mensaje'] = 'Empresa creada correctamente';
@@ -74,7 +74,7 @@ class EmpresaControlador{
         
         if(isset($_POST['id']) && isset($_POST['idempresa']) && isset($_POST['nombre']) && isset($_POST['ubicacion'])){
 
-            $empresa = new empresa($_POST['id'], $_POST['idempresa'], $_POST['nombre'], $_POST['ubicacion'],1, $_POST['tipo']);
+            $empresa = new empresa($_POST['id'], $_POST['idempresa'], $_POST['nombre'], $_POST['ubicacion'],1, $_POST['tipo'],$_POST['cedula'],$_POST['sitio']);
 
             if($empresaData->actualizar($empresa)){
                 $data['mensaje'] = 'Empresa actualizada correctamente';

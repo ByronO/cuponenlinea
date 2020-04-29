@@ -7,17 +7,35 @@ class empresa {
     private $empresanombre;
 	private $empresaubicacion;
 	private $empresaestado;
-    private $empresatipo;
+	private $empresatipo;
+	private $empresacedula;
+    private $empresasitioweb;
     
-	function empresa($empresaid, $empresacodigo, $empresanombre, $empresaubicacion,$empresaestado,$empresatipo) {
+	function empresa($empresaid, $empresacodigo, $empresanombre, $empresaubicacion,$empresaestado,$empresatipo,$empresacedula,$empresasitioweb) {
 
         $this->empresaid = $empresaid;
         $this->empresacodigo = $empresacodigo;
         $this->empresanombre = $empresanombre;
 		$this->empresaubicacion = $empresaubicacion;
 		$this->empresaestado = $empresaestado;
-        $this->empresatipo = $empresatipo;
+		$this->empresatipo = $empresatipo;
+		$this->empresacedula = $empresacedula;
+		$this->empresasitioweb = $empresasitioweb;
     }
+
+	function getempresacedula() { 
+		return $this->empresacedula; 
+	}
+	function setempresacedula($empresacedula) { 
+		$this->empresacedula = $empresacedula; 
+	}
+
+	function getempresasitioweb() { 
+		return $this->empresasitioweb; 
+	}
+	function setempresasitioweb($empresasitioweb) { 
+		$this->empresasitioweb = $empresasitioweb; 
+	}
 
 	function getempresaid() { 
 		return $this->empresaid; 
