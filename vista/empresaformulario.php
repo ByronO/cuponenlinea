@@ -21,10 +21,7 @@ if(isset($vars['empresa'])){
 }
 ?>
 <input required type="hidden" name="id" id="id" value="<?php echo $id?>"/>
-<div>
-    <label for="idempresa">Codigo</label>
-    <input required type="text" name="idempresa" id="idempresa" value="<?php echo $codigo?>"/>
-</div>
+
 <div>
     <label for="nombre">Nombre</label>
     <input required type="text" name="nombre" id="nombre" value="<?php echo $nombre?>"/>

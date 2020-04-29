@@ -28,7 +28,7 @@ class empresaData extends Conexion {
         
         $consulta = 
         $mysql->prepare
-        ("INSERT INTO ". TBL_EMPRESA ."(empresaid,empresacodigo,empresanombre,empresaubicacion,empresaestado,empresacategoria,empresacedulajuridica,empresasitioweb) VALUES('$id','$tipo$codigo','$nombre','$ubicacion',1,'$tipo','$cedula','$sitio');");
+        ("INSERT INTO ". TBL_EMPRESA ."(empresaid,empresacodigo,empresanombre,empresaubicacion,empresaestado,empresacategoria,empresacedulajuridica,empresasitioweb) VALUES('$id','$tipo$id','$nombre','$ubicacion',1,'$tipo','$cedula','$sitio');");
 
 
         $resultado = $consulta->execute();
@@ -279,5 +279,3 @@ class empresaData extends Conexion {
     }
 }
 ?>
-
-
