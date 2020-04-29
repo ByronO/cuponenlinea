@@ -48,19 +48,21 @@
         <form method="post" enctype="multipart/form-data" action="?controlador=Empresa&accion=actualizarServicios">
             <div class="row">
                 <div class="col-sm-6">
-                    <label for="criterio">Criterio</label>
-                    <input required type="text" name="criterio" id="criterioN" value=""/>
+                    <label for="criterio">Criterio</label><br>
+                    <input type="text" name="criterio" id="criterioN" value=""/>
                 </div>
                 <div class="col-sm-6">
                     <label for="valor">Valor</label><br>
-                    <input required type="text" name="valor" id="valorN" value=""/>
+                    <input type="text" name="valor" id="valorN" value=""/>
                 </div>
             </div>
             <br>
             <input type="button" href="javascript:;"
             onclick="actualizarServicios($('#criterioN').val(), $('#valorN').val());return false;" value="Añadir servicio">
-            <!--<input type="submit" value="Añadir servicio" name="agregar" id="agregar"/>
-                -->
+            <br><br>
+            
+            <input type="submit" value="Agregar servicios" name="agregar" id="agregar"/>
+            
         </form>
 
             <p style="color: green" id="mensaje"></p>

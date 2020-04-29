@@ -17,7 +17,7 @@
                 </td>
                 <td> <?php echo $value->getempresanombre()?> </td>
                 <td> <?php echo $value->getempresaubicacion()?> </td>
-                <td> <?php echo $value->getempresatipo()?> </td>
+                <td> <?php echo $value->getempresacategoria()?> </td>
                 <td> <a href="?controlador=Empresa&accion=obtenerServiciosEmpresa&id=<?php echo $value->getempresaid(); ?>">Servicios</a> </td>
                 <td> <a href="?controlador=Empresa&accion=obtenerContactosEmpresa&id=<?php echo $value->getempresaid(); ?>">Contactos</a> </td>
                 <td> <a href="?controlador=Empresa&accion=borrar&id=<?php echo $value->getempresaid(); ?>">Borrar</a></td>

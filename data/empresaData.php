@@ -22,12 +22,12 @@ class empresaData extends Conexion {
         $codigo = $empresa->getempresacodigo();
         $nombre = $empresa->getempresanombre();
         $ubicacion = $empresa->getempresaubicacion();
-        $tipo = $empresa->getempresatipo();
+        $tipo = $empresa->getempresacategoria();
             
         
         $consulta = 
         $mysql->prepare
-        ("INSERT INTO ". TBL_EMPRESA ."(empresaid,empresacodigo,empresanombre,empresaubicacion,empresaestado,empresatipo) VALUES('$id','$codigo','$nombre','$ubicacion',1,'$tipo');");
+        ("INSERT INTO ". TBL_EMPRESA ."(empresaid,empresacodigo,empresanombre,empresaubicacion,empresaestado,empresacategoria) VALUES('$id','$codigo','$nombre','$ubicacion',1,'$tipo');");
 
         $resultado = $consulta->execute();
         
@@ -103,11 +103,11 @@ class empresaData extends Conexion {
         $codigo = $empresa->getempresacodigo();
         $nombre = $empresa->getempresanombre();
         $ubicacion = $empresa->getempresaubicacion();
-        $tipo = $empresa->getempresatipo();
+        $tipo = $empresa->getempresacategoria();
         
       
         $consulta = $mysql->prepare("UPDATE " . TBL_EMPRESA . " SET empresacodigo='$codigo', empresanombre='$nombre', empresaubicacion='$ubicacion', 
-        empresatipo='$tipo' WHERE empresaid='$id'");
+        empresacategoria='$tipo' WHERE empresaid='$id'");
  
         $resultado = $consulta->execute();
         
@@ -121,7 +121,7 @@ class empresaData extends Conexion {
     public function obtenerTodos() {
         $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
         
-        $consulta = $mysql->prepare("SELECT empresaid,empresacodigo,empresanombre,empresaubicacion,empresatipo FROM " . TBL_EMPRESA . " WHERE empresaestado=1;");
+        $consulta = $mysql->prepare("SELECT empresaid,empresacodigo,empresanombre,empresaubicacion,empresacategoria FROM " . TBL_EMPRESA . " WHERE empresaestado=1;");
         
         $consulta->execute();
         
@@ -131,7 +131,7 @@ class empresaData extends Conexion {
         
         $empresas = [];
         while ($fila = $resultado->fetch_array()) {
-            $empresa = new empresa($fila['empresaid'], $fila['empresacodigo'], $fila['empresanombre'],$fila['empresaubicacion'],1, $fila['empresatipo']);
+            $empresa = new empresa($fila['empresaid'], $fila['empresacodigo'], $fila['empresanombre'],$fila['empresaubicacion'],1, $fila['empresacategoria']);
 
             array_push($empresas, $empresa);
         }
@@ -142,7 +142,7 @@ class empresaData extends Conexion {
     public function obtenerEmpresaId($id) {
         $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
         
-        $consulta = $mysql->prepare("SELECT empresaid,empresacodigo,empresanombre,empresaubicacion,empresatipo FROM  " . TBL_EMPRESA . " WHERE empresaid=?");
+        $consulta = $mysql->prepare("SELECT empresaid,empresacodigo,empresanombre,empresaubicacion,empresacategoria FROM  " . TBL_EMPRESA . " WHERE empresaid=?");
         $consulta->bind_param("i", $id);
         
         $consulta->execute();
@@ -152,7 +152,7 @@ class empresaData extends Conexion {
         $consulta->close();
         
         if($fila = $resultado->fetch_assoc()) {
-            $empresa = new empresa($fila['empresaid'], $fila['empresacodigo'], $fila['empresanombre'],$fila['empresaubicacion'],1, $fila['empresatipo']);
+            $empresa = new empresa($fila['empresaid'], $fila['empresacodigo'], $fila['empresanombre'],$fila['empresaubicacion'],1, $fila['empresacategoria']);
             return $empresa;
         }
         
@@ -204,6 +204,8 @@ class empresaData extends Conexion {
 
         return $servicios;
     } // obtenerOrdenId
+
+
     public function obtenerEmpresaContacto($id) {
         $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
         
@@ -243,6 +245,20 @@ class empresaData extends Conexion {
         
         return $resultado;
     }
+
+    public function actualizarServicio($id, $criterios, $valores){
+        $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
+
+        $consulta = $mysql->prepare("UPDATE " . TBL_SERVICIO . " SET serviciocriterio='$criterios', serviciovalor = '$valores' WHERE servicioid='$id'");
+
+        $resultado = $consulta->execute();
+        
+        $consulta->close();
+
+        
+        return $resultado;
+    }
+
     public function eliminarContacto($id, $criterios, $valores){
         $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
         

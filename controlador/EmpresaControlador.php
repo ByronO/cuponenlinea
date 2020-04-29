@@ -188,13 +188,47 @@ class EmpresaControlador{
 
             if($empresaData->eliminarServicio($_SESSION['servicioE'][0]->getservicioid(), $criteriosNuevos, $serviciosNuevos)){
                 $data['mensaje'] = 'Servicio eliminado correctamente';
-            }else $data['mensaje'] = 'Error al eliminar la empresa';
+            }else $data['mensaje'] = 'Error al eliminar el servicio';
 
         }else $data = null;
         
         $data['servicios'] = $empresaData->obtenerEmpresaServicio($_SESSION['servicioE'][0]->getempresaid());
         $this->vista->mostrar("mostrarservicios.php", $data);
     }
+
+    public function actualizarServicios(){        
+        require rutaData.'empresaData.php';
+        $empresaData = new empresaData();
+
+        $cont = 0;
+        $criteriosNuevos = "";
+        $serviciosNuevos = "";
+        foreach ($_SESSION['servicioE'] as $se) {
+            $criteriosNuevos .= $_SESSION['servicioE'][0]->getserviciocriterio()[$cont] . ',';
+            $serviciosNuevos .= $_SESSION['servicioE'][0]->getserviciovalor()[$cont] . ',';
+           
+            $cont++;
+        }
+
+        $cont = 0;
+        foreach ($_SESSION['servicios'] as $se) {
+            $criteriosNuevos .= $_SESSION['criterios'][$cont] . ',';
+            $serviciosNuevos .= $_SESSION['servicios'][$cont] . ',';
+            
+            $cont++;
+        }
+
+        if($empresaData->actualizarServicio($_SESSION['servicioE'][0]->getservicioid(), $criteriosNuevos, $serviciosNuevos)){
+            $data['mensaje'] = 'Servicios agregados correctamente';
+        }else $data['mensaje'] = 'Error al agregar servicios a la empresa';
+
+        
+        $data['servicios'] = $empresaData->obtenerEmpresaServicio($_SESSION['servicioE'][0]->getempresaid());
+        $this->vista->mostrar("mostrarservicios.php", $data);
+
+    }
+    // CONTACTOS
+    
     public function eliminarContacto(){
         require rutaData.'empresaData.php';
         $empresaData = new empresaData();
@@ -218,7 +252,7 @@ class EmpresaControlador{
             }
 
             if($empresaData->eliminarContacto($_SESSION['contactoE'][0]->getempesacontactoid(), $criteriosNuevos, $contactosNuevos)){
-                $data['mensaje2'] = 'Servicio eliminado correctamente';
+                $data['mensaje2'] = 'Contacto eliminado correctamente';
             }else $data['mensaje2'] = 'Error al eliminar la empresa';
 
         }else $data = null;
@@ -227,12 +261,7 @@ class EmpresaControlador{
     }
     
     
-    public function actualizarServicios(){
-
-
-
-    }
-    // CONTACTOS
+    
     public function agregarContacto()
     {
         $criterioC = $_POST['criterioC'];

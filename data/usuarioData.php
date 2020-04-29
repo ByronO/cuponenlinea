@@ -34,7 +34,7 @@ class usuarioData extends Conexion {
     public function obtenerTodos() {
         $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
         
-        $consulta = $mysql->prepare("SELECT empresaid,empresacodigo,empresanombre,empresaubicacion,empresatipo FROM " . TBL_EMPRESA . " WHERE empresaestado=1;");
+        $consulta = $mysql->prepare("SELECT empresaid,empresacodigo,empresanombre,empresaubicacion,empresacategoria FROM " . TBL_EMPRESA . " WHERE empresaestado=1;");
         
         $consulta->execute();
         
@@ -44,7 +44,7 @@ class usuarioData extends Conexion {
         
         $empresas = [];
         while ($fila = $resultado->fetch_array()) {
-            $empresa = new empresa($fila['empresaid'], $fila['empresacodigo'], $fila['empresanombre'],  $fila['empresaubicacion'],1, $fila['empresatipo']);
+            $empresa = new empresa($fila['empresaid'], $fila['empresacodigo'], $fila['empresanombre'],  $fila['empresaubicacion'],1, $fila['empresacategoria']);
 
             array_push($empresas, $empresa);
         }
