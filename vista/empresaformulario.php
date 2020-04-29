@@ -6,7 +6,7 @@ if(isset($vars['empresa'])){
     $codigo = $empresa->getempresacodigo();
     $nombre = $empresa->getempresanombre();
     $ubicacion = $empresa->getempresaubicacion();
-    $tipo = $empresa->getempresatipo();
+    $tipo = $empresa->getempresacategoria();
     $cedula = $empresa->getempresacedula();
     $sitio = $empresa->getempresasitioweb();
 
@@ -30,7 +30,7 @@ if(isset($vars['empresa'])){
     <input required type="text" name="nombre" id="nombre" value="<?php echo $nombre?>"/>
 </div>
 <div>
-    <label for="ubicacion">Ubicacion</label>
+    <label for="ubicacion">Ubicación</label>
     <input required type="text" name="ubicacion" id="ubicacion" value="<?php echo $ubicacion?>"/>
 </div>
 <div>

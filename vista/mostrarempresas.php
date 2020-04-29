@@ -19,7 +19,7 @@
                 </td>
                 <td> <?php echo $value->getempresanombre()?> </td>
                 <td> <?php echo $value->getempresaubicacion()?> </td>
-                <td> <?php echo $value->getempresatipo()?> </td>
+                <td> <?php echo $value->getempresacategoria()?> </td>
                 <td> <?php echo $value->getempresacedula()?> </td>
                 <td> <?php echo $value->getempresasitioweb()?> </td>
                 <td> <a href="?controlador=Empresa&accion=obtenerServiciosEmpresa&id=<?php echo $value->getempresaid(); ?>">Servicios</a> </td>

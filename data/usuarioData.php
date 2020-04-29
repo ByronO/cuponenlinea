@@ -32,6 +32,7 @@ class usuarioData extends Conexion {
     
 
     public function obtenerTodos() {
+
       $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
       
       $consulta = $mysql->prepare("SELECT empresaid,empresacodigo,empresanombre,empresaubicacion,empresacategoria,empresacedulajuridica,empresasitioweb FROM " . TBL_EMPRESA . " WHERE empresaestado=1;");
