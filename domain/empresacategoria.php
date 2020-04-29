@@ -6,13 +6,15 @@ class empresacategoria {
     private $empresacategoriacodigo;
     private $empresacategoriaestado;
     private $empresacategorianombre;
+	private $empresacategoriaacronimo;
 
-	function empresacategoria($empresacategoriaid, $empresacategoriacodigo,$empresacategoriaestado, $empresacategorianombre) {
+	function empresacategoria($empresacategoriaid, $empresacategoriacodigo,$empresacategoriaestado, $empresacategorianombre,$empresacategoriaacronimo) {
 
         $this->empresacategoriaid = $empresacategoriaid;
         $this->empresacategoriacodigo = $empresacategoriacodigo;
         $this->empresacategoriaestado = $empresacategoriaestado;
-        $this->empresacategorianombre = $empresacategorianombre;
+		$this->empresacategorianombre = $empresacategorianombre;
+		$this->empresacategoriaacronimo=$empresacategoriaacronimo;
     }
 
 	function getempresacategoriaid() { 
@@ -43,6 +45,13 @@ class empresacategoria {
 	}
 	function setempresacategorianombre($empresacategorianombre) { 
 		$this->empresacategorianombre = $empresacategorianombre; 
+	}
+	
+	function getempresacategoriaacronimo() { 
+		return $this->empresacategoriaacronimo; 
+	}
+	function setempresacategoriaacronimo($empresacategoriaacronimo) { 
+		$this->empresacategoriaacronimo = $empresacategoriaacronimo; 
 	}
 	
 	

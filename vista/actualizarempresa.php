@@ -2,7 +2,7 @@
 include rutaVista.'header.php';
 ?>
 
-<h1>Actualizar orden</h1>
+<h1>Actualizar Empresa</h1>
 
 <form method="post" action="?controlador=Empresa&accion=actualizar">
     <?php
