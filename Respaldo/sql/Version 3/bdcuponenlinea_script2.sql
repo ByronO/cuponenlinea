@@ -36,3 +36,10 @@ CREATE TABLE tbservicio(
     serviciovalor varchar(500),
     empresaid int
 );
+
+CREATE TABLE tbservicioimagen(
+		id int PRIMARY KEY,
+        servicioid int,
+        serviciovalor varchar(50),
+        ruta varchar(150)
+)

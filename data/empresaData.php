@@ -164,7 +164,7 @@ class empresaData extends Conexion {
         
         return null;
          
-    } // obtenerOrdenId
+    } 
     
     public function borrar($id) {
         require_once rutaData . 'empresaData.php';
@@ -209,8 +209,35 @@ class empresaData extends Conexion {
         $servicios = new servicio($resultado[0],$criterios, $valores,$id);
 
         return $servicios;
-    } // obtenerOrdenId
+    } 
 
+    public function obtenerServicio($id) {
+        $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
+        
+        $consulta = $mysql->prepare("SELECT servicioid, serviciocriterio, serviciovalor FROM  " . TBL_SERVICIO . " WHERE servicioid='$id'");
+        
+        $consulta->execute();
+        
+        $resultado = $consulta->get_result()->fetch_array();
+        
+        $consulta->close();
+        /*
+        $servicios = [];
+        while ($fila = $resultado->fetch_array()) {
+            $servicio = new servicio($fila['servicioid'], $fila['servivciocriterio'], $fila['serviciovalor'],$id);
+            
+            array_push($servicios, $servicio);
+        }
+        
+        return $servicios; 
+         */
+        $criterios = explode(",", $resultado[1]);
+        $valores = explode(",", $resultado[2]);
+
+        $servicios = new servicio($resultado[0],$criterios, $valores,$id);
+
+        return $servicios;
+    } 
 
     public function obtenerEmpresaContacto($id) {
         $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
@@ -237,7 +264,7 @@ class empresaData extends Conexion {
         
         $contactos = new contacto($resultado[0],$criterios,$valores,$id);
         return $contactos;
-    } // obtenerOrdenId
+    }
 
     public function eliminarServicio($id, $criterios, $valores){
         $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
@@ -255,7 +282,16 @@ class empresaData extends Conexion {
     public function actualizarServicio($id, $criterios, $valores){
         $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
 
-        $consulta = $mysql->prepare("UPDATE " . TBL_SERVICIO . " SET serviciocriterio='$criterios', serviciovalor = '$valores' WHERE servicioid='$id'");
+        $consulta = $mysql->prepare("SELECT serviciocriterio, serviciovalor FROM  " . TBL_SERVICIO . " WHERE servicioid='$id'");
+        $consulta->execute();
+        $resultado = $consulta->get_result()->fetch_array();
+        
+        $consulta->close();
+
+        $criteriosNuevos = $resultado[0] .',' . $criterios;
+        $valoresNuevos = $resultado[1]  .',' . $valores; 
+
+        $consulta = $mysql->prepare("UPDATE " . TBL_SERVICIO . " SET serviciocriterio='$criteriosNuevos', serviciovalor = '$valoresNuevos' WHERE servicioid='$id'");
 
         $resultado = $consulta->execute();
         
@@ -263,6 +299,47 @@ class empresaData extends Conexion {
 
         
         return $resultado;
+    }
+
+    public function agregarImagenServicio($idS, $valor, $ruta){
+        $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
+
+        $ultimoId = $mysql->prepare("SELECT MAX(id) AS id FROM " . TBL_SERVICIOIMAGEN);
+        $ultimoId->execute();
+        $id = 1;
+        if ($fila = $ultimoId->get_result()->fetch_row()) {
+            $id = trim($fila[0]) + 1;
+        }
+
+        $consulta = $mysql->prepare("INSERT INTO ". TBL_SERVICIOIMAGEN ."(id, servicioid, serviciovalor, ruta) 
+                                    VALUES('$id', '$idS', '$valor','$ruta');");
+
+        $resultado = $consulta->execute();
+
+        $consulta->close();
+                            
+    }
+
+    public function obtenerImageneServicio($id){
+        $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
+        
+        $consulta = $mysql->prepare("SELECT id, servicioid, serviciovalor, ruta FROM " . TBL_SERVICIOIMAGEN . " WHERE servicioid='$id';");
+
+        $consulta->execute();
+        
+        $resultado = $consulta->get_result();
+        
+        $consulta->close();
+        
+        $imagenes = [];
+        while ($fila = $resultado->fetch_array()) {
+            $imagen = new imagenservicio($fila['id'], $fila['servicioid'], $fila['serviciovalor'],$fila['ruta']);
+
+            array_push($imagenes, $imagen);
+        }
+      return $imagenes;
+
+
     }
 
     public function eliminarContacto($id, $criterios, $valores){

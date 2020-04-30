@@ -14,17 +14,35 @@
 
             <th>Criterio</th>
             <th>Servicio</th>
+            <th>Imagen</th>
             </thead>
             
             <tbody id="filas">
                 <?php 
                 $cont = 0;
+                $encontro = 0;
                 foreach($vars['servicios']->getserviciocriterio() as $value){ 
+                    $encontro = 0;
                     if($vars['servicios']->getserviciocriterio()[$cont] != ""){
                     ?>
                     <tr>
                         <td> <?php echo $vars['servicios']->getserviciocriterio()[$cont]?> </td>
                         <td> <?php echo $vars['servicios']->getserviciovalor()[$cont]?> </td>
+                        <?php 
+                            foreach($vars['imagenes'] as $imagen){
+                                if($vars['servicios']->getserviciovalor()[$cont] == $imagen->getserviciovalor()){
+                                    $encontro = 1;
+                        ?>
+                                    <td> <img src="<?php echo $imagen->getruta() ?>" width="75" height="75"></td>
+                        <?php 
+                                }
+                            }
+                            if($encontro == 0){
+                        ?>
+                            <td> <a href="?controlador=Empresa&accion=agregarImagen&valor=<?php echo $vars['servicios']->getserviciovalor()[$cont]; ?>">Agregar Imagen</a></td>
+                        <?php
+                            }
+                         ?>
                         <td> <a href="?controlador=Empresa&accion=eliminarServicio&criterio=<?php echo $vars['servicios']->getserviciocriterio()[$cont]; ?>">Borrar</a></td>
                     </tr>
             <?php   }

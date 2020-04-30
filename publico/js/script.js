@@ -15,7 +15,8 @@ function agregarServicio(criterio, servicio) {
             },
             success: function (response) {
                 $("#mensaje").html(response);
-                if(response != 'Alguno de los valores ya fueron agregados' ){
+                var var2=response.replace("\n","");
+                if(response.includes("Servicio agregado") ){
                     document.getElementById("filas").innerHTML += '<tr><td>' + criterio + '</td><td> ' + servicio + '</td></tr>';
                     document.getElementById("criterio").value = "";
                     document.getElementById("valor").value = "";
@@ -40,7 +41,7 @@ function actualizarServicios(criterio, servicio) {
             },
             success: function (response) {
                 $("#mensaje").html(response);
-                if(response != 'Alguno de los valores ya fueron agregados' ){
+                if(!response.includes('Algunos de los valores ya fueron agregados') ){
                     document.getElementById("filasN").innerHTML += '<tr><td>' + criterio + '</td><td> ' + servicio + '</td></tr>';
                     document.getElementById("criterioN").value = "";
                     document.getElementById("valorN").value = "";
@@ -64,7 +65,7 @@ function agregarContacto (criterioC,contacto){
             },
             success: function (response) {
                 $("#mensaje2").html(response);
-                if(response != 'Alguno de los valores ya fueron agregados' ){
+                if(!response.includes('Alguno de los valores ya fueron agregados') ){
                     document.getElementById("filasC").innerHTML += '<tr><td>' + criterioC + '</td><td> ' + contacto + '</td></tr>';
                     document.getElementById("criterioC").value = "";
                     document.getElementById("valorC").value = "";
@@ -88,7 +89,7 @@ function actualizarContacto(criterio, contacto) {
             },
             success: function (response) {
                 $("#mensaje").html(response);
-                if(response != 'Alguno de los valores ya fueron agregados' ){
+                if(!response.includes( 'Alguno de los valores ya fueron agregados') ){
                     document.getElementById("filasN").innerHTML += '<tr><td>' + criterio + '</td><td> ' + contacto + '</td></tr>';
                     document.getElementById("criterioN").value = "";
                     document.getElementById("valorN").value = "";
