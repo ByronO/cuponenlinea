@@ -10,6 +10,7 @@ define("TBL_USUARIO",  "tbusuario");
 define("TBL_SERVICIO",  "tbservicio");
 define("TBL_EMPRESACONTACTO", "tbempresacontacto");
 define("TBL_EMPRESACATEGORIA",  "tbempresacategoria");
+define("TBL_SERVICIOIMAGEN",  "tbservicioimagen");
 
 define("rutaControlador",  "controlador/");
 define("rutaData",  "data/");
