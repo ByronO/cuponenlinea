@@ -9,7 +9,6 @@
         <title> Proyecto Gestion </title>
             <?php } ?>
     </head>
-    
     <body>
         <a href="?controlador=Usuario&accion=login"> Iniciar Sesión </a>
         <a href="?controlador=Cliente&accion=vistaRegistro"> Registrar Cliente Nuevo </a>
