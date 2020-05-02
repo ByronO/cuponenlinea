@@ -8,7 +8,7 @@
 <h1>Agregar Empresa</h1>
 
 <div class = "row">
-    <div class= "col-sm-3">
+    <div class= "col-sm-4">
         <h2>Datos básicos</h2>
         <form method="post" enctype="multipart/form-data" action="?controlador=Empresa&accion=insertar">
             <?php include rutaVista . 'empresaformulario.php'; ?>
@@ -22,7 +22,7 @@
         }
         ?>
 
-        <br><br>
+        <br><br><br><br>
         <h3>Lista de empresas registradas</h3>
         <?php
             include rutaVista.'mostrarEmpresas.php';

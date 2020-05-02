@@ -46,7 +46,7 @@ div#menu li a{
 }
 
 div#menu li a:hover{
-    transition: background-color 0.3s ease; !important;
+    transition: background-color 0.3s ease !important;
     font-size: 15px !important;
 }
 

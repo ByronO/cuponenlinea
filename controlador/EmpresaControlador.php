@@ -1,6 +1,7 @@
 <?php
 
 include 'domain/servicio.php';
+include 'domain/imagenservicio.php';
 include 'domain/contacto.php';
 session_start();
 
@@ -62,6 +63,7 @@ class EmpresaControlador{
         unset($_SESSION['criteriosContacto']);
         unset($_SESSION['contactos']);
         unset($_SESSION['contactoE']);
+        unset($_SESSION['serviciosC']);
         
         $this->vista->mostrar("insertarempresa.php", $data);
 
@@ -144,7 +146,7 @@ class EmpresaControlador{
             $_SESSION['servicios'][$cont] = $servicio;
             echo "Servicio agregado";
         } else {
-            echo "Alguno de los valores ya fueron agregados";
+            echo "Algunos de los valores ya fueron agregados";
         }
     }
 
@@ -159,12 +161,16 @@ class EmpresaControlador{
 
             $data['servicios'] = $empresaData->obtenerEmpresaServicio($idempresa);
             $_SESSION['servicioE'][0] = $data['servicios'];
+
+            $data['imagenes'] = $empresaData->obtenerImageneServicio($data['servicios']->getservicioid());
+
+            unset($_SESSION['criterios']);
+            unset($_SESSION['servicios']);
             $this->vista->mostrar("mostrarservicios.php", $data);
         }
 
     }
     
-
     public function eliminarServicio(){
         require rutaData.'empresaData.php';
         $empresaData = new empresaData();
@@ -175,13 +181,15 @@ class EmpresaControlador{
             $cont = 0;
             $criteriosNuevos = "";
             $serviciosNuevos = "";
-            foreach ($_SESSION['servicioE'] as $se) {
+
+            $servicio = $empresaData->obtenerServicio($_SESSION['servicioE'][0]->getservicioid());
+            foreach ($servicio->getserviciocriterio() as $cr) {
                
-                if ($_SESSION['servicioE'][0]->getserviciocriterio()[$cont] == $criterioB) {
+                if ($cr == $criterioB) {
                    
                 }else{
-                    $criteriosNuevos .= $_SESSION['servicioE'][0]->getserviciocriterio()[$cont] . ',';
-                    $serviciosNuevos .= $_SESSION['servicioE'][0]->getserviciovalor()[$cont] . ',';
+                    $criteriosNuevos .= $servicio->getserviciocriterio()[$cont] . ',';
+                    $serviciosNuevos .= $servicio->getserviciovalor()[$cont] . ',';
                 }
                 $cont++;
             }
@@ -193,6 +201,7 @@ class EmpresaControlador{
         }else $data = null;
         
         $data['servicios'] = $empresaData->obtenerEmpresaServicio($_SESSION['servicioE'][0]->getempresaid());
+        $data['imagenes'] = $empresaData->obtenerImageneServicio($data['servicios']->getservicioid());
         $this->vista->mostrar("mostrarservicios.php", $data);
     }
 
@@ -203,12 +212,6 @@ class EmpresaControlador{
         $cont = 0;
         $criteriosNuevos = "";
         $serviciosNuevos = "";
-        foreach ($_SESSION['servicioE'] as $se) {
-            $criteriosNuevos .= $_SESSION['servicioE'][0]->getserviciocriterio()[$cont] . ',';
-            $serviciosNuevos .= $_SESSION['servicioE'][0]->getserviciovalor()[$cont] . ',';
-           
-            $cont++;
-        }
 
         $cont = 0;
         foreach ($_SESSION['servicios'] as $se) {
@@ -222,11 +225,75 @@ class EmpresaControlador{
             $data['mensaje'] = 'Servicios agregados correctamente';
         }else $data['mensaje'] = 'Error al agregar servicios a la empresa';
 
-        
+        unset($_SESSION['criterios']);
+        unset($_SESSION['servicios']);
         $data['servicios'] = $empresaData->obtenerEmpresaServicio($_SESSION['servicioE'][0]->getempresaid());
+        $data['imagenes'] = $empresaData->obtenerImageneServicio($data['servicios']->getservicioid());
         $this->vista->mostrar("mostrarservicios.php", $data);
 
     }
+
+    public function agregarImagen(){
+
+        $valor = $_GET['valor'];
+
+        $data['valor'] = $valor;
+        $data['servicio'] = $_SESSION['servicioE'][0];
+
+        $this->vista->mostrar("seleccionarimagen.php", $data);
+
+    }
+
+
+    public function agregarImagenServicio(){
+        require rutaData.'empresaData.php';
+        $empresaData = new empresaData();
+
+        $id = $_POST['id'];
+        $valor = $_POST['valor'];
+
+        if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
+            // get details of the uploaded file
+            $fileTmpPath = $_FILES['imagen']['tmp_name'];
+            $fileName = $_FILES['imagen']['name'];
+            $fileSize = $_FILES['imagen']['size'];
+            $fileType = $_FILES['imagen']['type'];
+            $fileNameCmps = explode(".", $fileName);
+            $fileExtension = strtolower(end($fileNameCmps));
+
+            // sanitize file-name
+            $newFileName = $id . $valor . '.' . $fileExtension;
+
+            // check if file has one of the following extensions
+            $allowedfileExtensions = array('jpg', 'png', 'jpeg');
+
+
+            if (in_array($fileExtension, $allowedfileExtensions)) {
+                // directory in which the uploaded file will be moved
+                $uploadFileDir = './publico/imgs/';
+                $dest_path = $uploadFileDir . $newFileName;
+                if (move_uploaded_file($fileTmpPath, $dest_path)) {
+
+                    $empresaData->agregarImagenServicio($id, $valor, $dest_path);
+                    
+                    $data['servicios'] = $_SESSION['servicioE'][0];
+                    $data['imagenes'] = $empresaData->obtenerImageneServicio($data['servicios']->getservicioid());
+
+                    $this->vista->mostrar("mostrarservicios.php", $data);
+                }
+
+            }else{
+                $data['valor'] = $valor;
+                $data['servicio'] = $_SESSION['servicioE'][0];
+
+                $this->vista->mostrar("seleccionarimagen.php", $data);
+                echo "<script>
+                alert('Extension invalida');</script>";
+            }
+        }   
+    }
+
+
     // CONTACTOS
     
     public function eliminarContacto(){

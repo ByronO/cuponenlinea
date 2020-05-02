@@ -24,6 +24,7 @@
                 <td> <?php echo $value->getempresasitioweb()?> </td>
                 <td> <a href="?controlador=Empresa&accion=obtenerServiciosEmpresa&id=<?php echo $value->getempresaid(); ?>">Servicios</a> </td>
                 <td> <a href="?controlador=Empresa&accion=obtenerContactosEmpresa&id=<?php echo $value->getempresaid(); ?>">Contactos</a> </td>
+                <td> <a href="?controlador=Cupon&accion=insertar&id=<?php echo $value->getempresaid(); ?>">Agregar cupón</a> </td>
                 <td> <a href="?controlador=Empresa&accion=borrar&id=<?php echo $value->getempresaid(); ?>">Borrar</a></td>
             </tr>
 <?php   }
