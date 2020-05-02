@@ -4,8 +4,7 @@ class usuario {
     private $usuarioid;
     private $usuarionombre;
 	private $usuariocontrasenna;
-	
-	
+
     private $empresadescripcion;
 	private $empresaubicacion;
 	private $empresaestado;

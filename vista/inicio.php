@@ -11,8 +11,10 @@
     </head>
     <body>
         <a href="?controlador=Usuario&accion=login"> Iniciar Sesión </a>
+        <a href="?controlador=Cliente&accion=vistaRegistro"> Registrar Cliente Nuevo </a>
+        
         
 
-
+        <a href="?controlador=Clientecontacto&accion=vistaprincipal"> Regresar </a>
 
 

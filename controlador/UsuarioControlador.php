@@ -10,49 +10,48 @@ class UsuarioControlador{
     
     public function Inicio()
     {
-
+        unset($_SESSION['count']);
         unset($_SESSION['criterios']);
         unset($_SESSION['servicios']);
         $this->vista->mostrar('inicio.php', null);
         
     }
-
     public function login(){
         $data['mensaje'] = '';
         $this->vista->mostrar("login.php", $data);
-
     }
 
-
-    /*public function verificar(){
-        require rutaData.'UsuarioData.php';
-        $usuarioData = new usuarioData();
+    public function insertar(){
+        require rutaData.'clienteData.php';
+        $empresacategoriaData = new clienteData();
         
         if(isset($_POST['create'])){
             if(isset($_POST['usuario']) && isset($_POST['contra'])){
+               
+        $empresa = new clientenuevo(0,$_POST['usuario'],$_POST['contra'],1,0,0);
                 
-                $usuario = new usuario($_POST['usuario'], $_POST['contra']);
+                if($empresacategoriaData->insertar($empresa)){
+                    $data['mensaje'] = 'Categoria creada correctamente';
+                }else $data['mensaje'] = 'Error al insertar';
                 
-                if(is_numeric($usuarioData->verificar($usuario)[0])){
-                    $data['empresas'] = $usuarioData->obtenerTodos();
-        
-                    $this->vista->mostrar("insertarempresa.php", $data);
-                }else {
-                    $data['mensaje'] = 'Datos incorrectos';
-                    $this->vista->mostrar("login.php", $data);
-                }
             }else $data = null;
         }else $data = null;
+        
     } // insert
-*/
+
     public function verificar(){
+
         require rutaData.'UsuarioData.php';
         $usuarioData = new usuarioData();
-        
+
+        require rutaData.'datobancarioData.php';
+        $datobancarioData = new datobancarioData();
+
         if(isset($_POST['create'])){
             if(isset($_POST['usuario']) && isset($_POST['contra'])){
                 
                 $usuario = new usuario($_POST['usuario'], $_POST['contra']);
+              
                 
                 if(is_numeric($usuarioData->verificar($usuario)[0])){
                       require_once rutaData . 'empresacategoriaData.php';
@@ -61,10 +60,20 @@ class UsuarioControlador{
                     $data['categorias'] = $empresacategoriaData->obtenerTodos();
                     $data['empresas'] = $usuarioData->obtenerTodos();
                     $this->vista->mostrar("insertarempresa.php", $data);
+                }
+                elseif(is_numeric($usuarioData->verificarcliente($usuario)[0])) {
+                    $data['usuarioinicio'] = $usuarioData->verificarcliente($usuario);   
+                    $clienteconfir = implode(" ", $data['usuarioinicio']);
+                    $_SESSION['count'] = $clienteconfir;
+                    $data['cuentas'] = $datobancarioData->obtenerCuentasId($_SESSION['count']);
+                    $data['mensaje'] = '';
+                    $this->vista->mostrar("clientevistaprincipal.php", $data);
                 }else {
+
                     $data['mensaje'] = 'Datos incorrectos';
                     $this->vista->mostrar("login.php", $data);
-                }
+                
+            }
             }else $data = null;
         }else $data = null;
     } // insert
