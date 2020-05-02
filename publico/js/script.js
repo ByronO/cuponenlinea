@@ -15,7 +15,6 @@ function agregarServicio(criterio, servicio) {
             },
             success: function (response) {
                 $("#mensaje").html(response);
-                var var2=response.replace("\n","");
                 if(response.includes("Servicio agregado") ){
                     document.getElementById("filas").innerHTML += '<tr><td>' + criterio + '</td><td> ' + servicio + '</td></tr>';
                     document.getElementById("criterio").value = "";
@@ -93,6 +92,29 @@ function actualizarContacto(criterio, contacto) {
                     document.getElementById("filasN").innerHTML += '<tr><td>' + criterio + '</td><td> ' + contacto + '</td></tr>';
                     document.getElementById("criterioN").value = "";
                     document.getElementById("valorN").value = "";
+                }
+            }
+        }
+    );
+}
+
+
+function agregarServicioCupon(servicio) {
+    var parametros = {
+        "servicio": servicio
+    };
+    $.ajax(
+        {
+            data: parametros,
+            url: '?controlador=Cupon&accion=agregarServicio',
+            type: 'post',
+            beforeSend: function () {
+                $("#mensaje").html("Procesando, \n\ espere por favor...");
+            },
+            success: function (response) {
+                $("#mensaje2").html(response);
+                if(response.includes("Servicio agregado") ){
+                    document.getElementById("filasC").innerHTML += '<tr><td> ' + servicio + '</td></tr>';
                 }
             }
         }
