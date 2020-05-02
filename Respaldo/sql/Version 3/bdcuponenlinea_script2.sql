@@ -20,15 +20,17 @@ CREATE TABLE tbempresaturistica (
     empresasitioweb  VARCHAR(200)
 );
 CREATE TABLE tbusuario(
-usuarioid int,
-usuariocorreo VARCHAR(150),
-usuariocontrasenna VARCHAR(50)
+    usuarioid int,
+    usuariocorreo VARCHAR(150),
+    usuariocontrasenna VARCHAR(50)
 );
 CREATE TABLE tbempresacontacto(
-empesacontactoid int PRIMARY KEY NOT NULL,
-empresacontactocriterio VARCHAR(500),
-empesacontactovalor VARCHAR(500),
-empresaid int
+    empesacontactoid int PRIMARY KEY NOT NULL,
+    empresacontactocriterio VARCHAR(500),
+    empesacontactovalor VARCHAR(500),
+    empresafechainscripcion date,
+    empresafehcadesafiliacion date,
+    empresaid int
 );
 CREATE TABLE tbservicio(
 	servicioid int PRIMARY KEY,
@@ -56,3 +58,45 @@ CREATE TABLE tbcupon(
     cuponprecio int,
     cuponestado int
 )
+
+CREATE TABLE tbempresaubicacion(
+	id int PRIMARY KEY,
+    provincia VARCHAR(200),
+    canton VARCHAR(200),
+    distrito VARCHAR(200),
+    otrassenas VARCHAR(300),
+    empresaid int
+);
+CREATE TABLE tbclientedireccion (
+	id INT PRIMARY KEY,
+    clienteubicacion VARCHAR(500),
+    clienteid INT
+);
+
+create table tbcliente(
+    clienteid int PRIMARY KEY NOT NULL,
+    clientecorreo VARCHAR(100) UNIQUE NOT NULL,
+    clientecontrasenna VARCHAR(100),
+    clienteestado int,
+    clientefechainscripcion datetime,
+    clientefechadedesafiliacion  datetime
+);
+
+create table tbclientedatobancario(
+    clientedatobancarioid int PRIMARY KEY NOT NULL,
+    clientedatobancariobanco varchar(150),
+    clientedatobancarionumerotarjeta varchar(150),
+    clientedatobancarioestado int,
+    clientedatobancarioclienteid int,
+    clientedatobancariofechainscripcion datetime
+);
+
+create table tbclientecontacto (
+    clientecontactoid int PRIMARY KEY NOT NULL,
+    clientecontactotelefono1 varchar(20),
+    clientecontactotelefono2 varchar(20),
+    clientecontactocorreo varchar(200),
+    clientecontactofax varchar(100),
+    clientecontactoclienteid int,
+    clientecontactoestado int
+);
