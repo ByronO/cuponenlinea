@@ -15,6 +15,5 @@
         
         
 
-        <a href="?controlador=Clientecontacto&accion=vistaprincipal"> Regresar </a>
 
 

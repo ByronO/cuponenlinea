@@ -8,6 +8,7 @@ class ClienteControlador{
         $this->vista=new View();
     } // constructor
     
+    
     public function vistaRegistro(){
         $data['mensaje'] = '';
         $this->vista->mostrar("insertarcliente.php", $data);

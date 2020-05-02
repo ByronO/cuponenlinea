@@ -17,7 +17,7 @@ class ClientecontactoControlador{
         $this->vista->mostrar("clientevistaprincipal.php", $data);
     }
 
-    
+
     public function vistainsertarcontactos(){
         require rutaData.'clientecontactoData.php';
         $clientecontactoData = new clientecontactoData();
