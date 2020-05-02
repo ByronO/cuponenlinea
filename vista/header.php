@@ -20,6 +20,7 @@
     </head>
     <body>
         <a href="?controlador=Empresa&accion=insertar"> Empresa </a>
+        <a href="?controlador=Cupon&accion=verCupones"> Cupones </a>
         <a href="?controlador=Usuario&accion=Inicio"> Cerrar Sesión </a>
         
 

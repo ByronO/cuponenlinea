@@ -11,6 +11,7 @@ define("TBL_SERVICIO",  "tbservicio");
 define("TBL_EMPRESACONTACTO", "tbempresacontacto");
 define("TBL_EMPRESACATEGORIA",  "tbempresacategoria");
 define("TBL_SERVICIOIMAGEN",  "tbservicioimagen");
+define("TBL_CUPON",  "tbcupon");
 
 define("rutaControlador",  "controlador/");
 define("rutaData",  "data/");

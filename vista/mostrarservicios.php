@@ -9,7 +9,7 @@
     <div class= "col-sm-3">
         <h2>Lista de servicios de la empresa</h2>
         <br><br>
-        <table>
+        <table style="width: 100%">
             <thead>
 
             <th>Criterio</th>
@@ -17,7 +17,7 @@
             <th>Imagen</th>
             </thead>
             
-            <tbody id="filas">
+            <tbody id="filas" style="text-align: left">
                 <?php 
                 $cont = 0;
                 $encontro = 0;
@@ -100,7 +100,7 @@
             </table>
 
 
-        </div>
+    </div>
         <!-------------------------------------------------->
 
-    </div>
+</div>

@@ -63,6 +63,7 @@ class EmpresaControlador{
         unset($_SESSION['criteriosContacto']);
         unset($_SESSION['contactos']);
         unset($_SESSION['contactoE']);
+        unset($_SESSION['serviciosC']);
         
         $this->vista->mostrar("insertarempresa.php", $data);
 
