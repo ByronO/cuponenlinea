@@ -30,6 +30,27 @@ class usuarioData extends Conexion {
          
     } // insertar
     
+    public function verificarcliente(usuario $usuario1) {
+      $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
+      
+      $nombre = $usuario1->getusuarionombre();
+      $contra = $usuario1->getusuariocontrasenna();
+      
+      $consulta = $mysql->prepare("SELECT clienteid FROM " . TBL_CLIENTE . " WHERE clientecorreo='$nombre' and clientecontrasenna='$contra';");
+
+      $consulta->execute();
+      
+      $resultado = $consulta->get_result();
+
+      $consulta->close();
+ 
+      $id = [];
+      $fila = $resultado->fetch_array();
+      array_push($id, $fila['clienteid']);
+    return $id;
+       
+  } // insertar
+
 
     public function obtenerTodos() {
 

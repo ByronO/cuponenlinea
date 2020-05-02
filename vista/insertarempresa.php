@@ -28,7 +28,6 @@
             include rutaVista.'mostrarEmpresas.php';
         ?> 
 
-        
     </div>
 
     <!-- SERVICIOS DE LA EMPRESA -->

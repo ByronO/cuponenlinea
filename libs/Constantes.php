@@ -10,6 +10,9 @@ define("TBL_USUARIO",  "tbusuario");
 define("TBL_SERVICIO",  "tbservicio");
 define("TBL_EMPRESACONTACTO", "tbempresacontacto");
 define("TBL_EMPRESACATEGORIA",  "tbempresacategoria");
+define("TBL_CLIENTE",  "tbcliente");
+define("TBL_DATOBANCO",  "tbclientedatobancario");
+define("TBL_CLIENTECONTACTO",  "tbclientecontacto");
 define("TBL_SERVICIOIMAGEN",  "tbservicioimagen");
 define("TBL_CUPON",  "tbcupon");
 
