@@ -4,10 +4,10 @@
     $title = 'Lista cupones';
     include rutaVista.'header.php';
 ?>
-    
+
 <div class = "row">
     <div class= "col-sm-6">
-        <h2>Lista de cupones</h2>
+    <h2>Lista de cupones</h2>
         <br><br>
         <table style="width: 100%">
             <thead>
@@ -16,6 +16,8 @@
                 <th>Descripcion</th>
                 <th>Detalles</th>
                 <th>Servicios</th>
+                <th>Fecha Inicio</th>
+                <th>Fechas fin</th>
                 <th>Restricciones</th>
                 <th>Precio</th>
                 <th>Estado</th>
@@ -32,8 +34,10 @@
                         <td> <?php echo $cupon->getcupondescripcion()?> </td>
                         <td> <?php echo $cupon->getcupondetallesadicionales()?> </td>
                         <td> <a href="?controlador=Cupon&accion=verServicios&id=<?php echo  $cupon->getcuponid(); ?>"><?php echo  $cupon->getserviciovalor(); ?></a></td>
+                        <td> <?php echo $cupon->getcuponfechainicio()?> </td>
+                        <td> <?php echo $cupon->getcuponfechafin()?> </td>
                         <td> <?php echo $cupon->getcuponrestricciones()?> </td>
-                        <td> <?php echo $cupon->getcuponprecio()?> </td>
+                        <td> $<?php echo $cupon->getcuponprecio()?> </td>
                         <?php 
                             if($cupon->getcuponestado() == 1){
                         ?>
@@ -45,7 +49,7 @@
                         <?php
                             }
                          ?>
-                        <!--<td> <a href="?controlador=Cupon&accion=eliminarServicio&criterio=<?php  ?>">Borrar</a></td>-->
+                        <!-- <td> <a href="?controlador=Cupon&accion=eliminarServicio&criterio=<?php  ?>">Borrar</a></td> -->
                     </tr>
         <?php  } ?>
                 
@@ -61,9 +65,6 @@
         ?>
 
     </div>
-
-    <!-- cupones DE LA EMPRESA -->
-    
         <!-------------------------------------------------->
 
 </div>

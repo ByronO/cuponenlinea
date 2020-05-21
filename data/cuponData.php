@@ -20,13 +20,13 @@ class cuponData extends Conexion {
         return $id;
     }
     
-    public function insertarCupon($cuponid, $cuponnombre, $empresaid, $serviciovalor,$cuponrutaimagen, $cupondescripcion, $cupondetallesadicionales,$cuponrestricciones,$cuponprecio, $cuponestado) {
+    public function insertarCupon($cuponid, $cuponnombre, $empresaid, $serviciovalor,$cuponrutaimagen, $cupondescripcion, $cupondetallesadicionales,$cuponrestricciones,$cuponprecio, $cuponestado, $cuponfechainicio, $cuponfechafin) {
         $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
                
         $consulta = 
         $mysql->prepare
-        ("INSERT INTO ". TBL_CUPON ."(cuponid, cuponnombre, empresaid, serviciovalor, cuponrutaimagen, cupondescripcion, cupondetallesadicionales, cuponrestricciones, cuponprecio, cuponestado) 
-                            VALUES('$cuponid','$cuponnombre','$empresaid','$serviciovalor','$cuponrutaimagen','$cupondescripcion','$cupondetallesadicionales','$cuponrestricciones','$cuponprecio','$cuponestado');");
+        ("INSERT INTO ". TBL_CUPON ."(cuponid, cuponnombre, empresaid, serviciovalor, cuponrutaimagen, cupondescripcion, cupondetallesadicionales, cuponrestricciones, cuponprecio, cuponestado, cuponfechainicio, cuponfechafin) 
+                            VALUES('$cuponid','$cuponnombre','$empresaid','$serviciovalor','$cuponrutaimagen','$cupondescripcion','$cupondetallesadicionales','$cuponrestricciones','$cuponprecio','$cuponestado','$cuponfechainicio','$cuponfechafin');");
 
         $resultado = $consulta->execute();
         
@@ -40,7 +40,7 @@ class cuponData extends Conexion {
     public function obtenerTodos() {
         $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
         
-        $consulta = $mysql->prepare("SELECT cuponid, cuponnombre, empresaid, serviciovalor, cuponrutaimagen, cupondescripcion, cupondetallesadicionales, cuponrestricciones, cuponprecio, cuponestado FROM " . TBL_CUPON);
+        $consulta = $mysql->prepare("SELECT cuponid, cuponnombre, empresaid, serviciovalor, cuponrutaimagen, cupondescripcion, cupondetallesadicionales, cuponrestricciones, cuponprecio, cuponestado, cuponfechainicio, cuponfechafin FROM " . TBL_CUPON);
         
         $consulta->execute();
         
@@ -53,7 +53,7 @@ class cuponData extends Conexion {
         while ($fila = $resultado->fetch_array()) {
             //$valores = explode(",", $fila['serviciovalor']);
             $valores =$fila['serviciovalor'];
-            $cupon = new cupon($fila['cuponid'], $fila['cuponnombre'], $fila['empresaid'],$valores, $fila['cuponrutaimagen'], $fila['cupondescripcion'],$fila['cupondetallesadicionales'], $fila['cuponrestricciones'], $fila['cuponprecio'],$fila['cuponestado']);
+            $cupon = new cupon($fila['cuponid'], $fila['cuponnombre'], $fila['empresaid'],$valores, $fila['cuponrutaimagen'], $fila['cupondescripcion'],$fila['cupondetallesadicionales'], $fila['cuponrestricciones'], $fila['cuponprecio'],$fila['cuponestado'], $fila['cuponfechainicio'], $fila['cuponfechafin']);
         
             array_push($cupones, $cupon);
         }
@@ -64,7 +64,7 @@ class cuponData extends Conexion {
     public function obtenerCupon($id) {
         $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
         
-        $consulta = $mysql->prepare("SELECT cuponid, cuponnombre, empresaid, serviciovalor, cuponrutaimagen, cupondescripcion, cupondetallesadicionales, cuponrestricciones, cuponprecio, cuponestado FROM " . TBL_CUPON . "  WHERE cuponid='$id'");
+        $consulta = $mysql->prepare("SELECT cuponid, cuponnombre, empresaid, serviciovalor, cuponrutaimagen, cupondescripcion, cupondetallesadicionales, cuponrestricciones, cuponprecio, cuponestado, cuponfechainicio, cuponfechafin FROM " . TBL_CUPON . "  WHERE cuponid='$id'");
         
         $consulta->execute();
         
@@ -74,7 +74,7 @@ class cuponData extends Conexion {
         
         if($fila = $resultado->fetch_assoc()) {
             $valores = explode(",", $fila['serviciovalor']);
-            $cupon = new cupon($fila['cuponid'], $fila['cuponnombre'], $fila['empresaid'],$valores, $fila['cuponrutaimagen'], $fila['cupondescripcion'],$fila['cupondetallesadicionales'], $fila['cuponrestricciones'], $fila['cuponprecio'],$fila['cuponestado']);
+            $cupon = new cupon($fila['cuponid'], $fila['cuponnombre'], $fila['empresaid'],$valores, $fila['cuponrutaimagen'], $fila['cupondescripcion'],$fila['cupondetallesadicionales'], $fila['cuponrestricciones'], $fila['cuponprecio'],$fila['cuponestado'], $fila['cuponfechainicio'], $fila['cuponfechafin']);
             
         }
 

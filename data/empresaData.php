@@ -67,7 +67,7 @@ class empresaData extends Conexion {
 
 
         //INSERTAR CONTACTOS LIGADOS 
-        $ultimoIdC = $mysql->prepare("SELECT MAX(empesacontactoid) AS id FROM " . TBL_EMPRESACONTACTO);
+        $ultimoIdC = $mysql->prepare("SELECT MAX(empresacontactoid) AS id FROM " . TBL_EMPRESACONTACTO);
         $ultimoIdC->execute();
         $idC = 1;
         if ($fila = $ultimoIdC->get_result()->fetch_row()) {
@@ -83,7 +83,7 @@ class empresaData extends Conexion {
                 
             $cont++;
         }
-        $consulta = $mysql->prepare("INSERT INTO ". TBL_EMPRESACONTACTO ."(empesacontactoid, empresacontactocriterio, empesacontactovalor, empresaid) 
+        $consulta = $mysql->prepare("INSERT INTO ". TBL_EMPRESACONTACTO ."(empresacontactoid, empresacontactocriterio, empresacontactovalor, empresaid) 
                                         VALUES('$idC','$criterioC','$contacto','$id');");
 
         $resultado = $consulta->execute();

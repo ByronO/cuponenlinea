@@ -40,7 +40,7 @@ class CuponControlador{
 
         $data['cupones'] = $cuponData->obtenerTodos();
         
-        $this->vista->mostrar("mostrarcupones.php", $data);
+        $this->vista->mostrar("listacupones.php", $data);
 
         
     }
@@ -100,7 +100,7 @@ class CuponControlador{
                         $cont++;
                     }
 
-                    $cuponData->insertarCupon($id,$_POST['nombre'], $_POST['empresaid'],$servicio, $dest_path, $_POST['descripcion'], $_POST['detalles'], $_POST['restricciones'],$_POST['precio'], 1);
+                    $cuponData->insertarCupon($id,$_POST['nombre'], $_POST['empresaid'],$servicio, $dest_path, $_POST['descripcion'], $_POST['detalles'], $_POST['restricciones'],$_POST['precio'], 1, $_POST['fechainicio'] , $_POST['fechafin']);
                     
 
                     require rutaData.'empresaData.php';
