@@ -9,10 +9,10 @@ class DatobancarioControlador{
     } // constructor
 
     public function vistaprincipal(){
-        require rutaData.'datobancarioData.php';
-        $datobancarioData = new datobancarioData();
+        require rutaData.'cuponData.php';
+        $cuponData = new cuponData();
 
-        $data['cuentas'] = $datobancarioData->obtenerCuentasId($_SESSION['count']);  
+        $data['cupones'] = $cuponData->obtenerTodos();
         $data['mensaje'] = '';
         $this->vista->mostrar("clientevistaprincipal.php", $data);
     }
@@ -31,7 +31,7 @@ class DatobancarioControlador{
 
                 if(is_numeric($usuarioData->verificarcliente($usuario)[0])) {
             
-    $clientedatobancariobanco = new clientedatobancario(0,$_POST['banco'], $_POST['tarjeta'],0,$_SESSION['count'],0);
+        $clientedatobancariobanco = new clientedatobancario(0,$_POST['banco'], $_POST['tarjeta'],0,$_SESSION['count'],0);
                
                 if($datobancarioData->insertardatobanco($clientedatobancariobanco)){
                     $data['mensaje'] = 'ingresado correctamente';

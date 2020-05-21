@@ -9,10 +9,10 @@ class ClientecontactoControlador{
     } // constructor
 
     public function vistaprincipal(){
-        require rutaData.'datobancarioData.php';
-        $datobancarioData = new datobancarioData();
+        require rutaData.'cuponData.php';
+        $cuponData = new cuponData();
 
-        $data['cuentas'] = $datobancarioData->obtenerCuentasId($_SESSION['count']);  
+        $data['cupones'] = $cuponData->obtenerTodos();
         $data['mensaje'] = '';
         $this->vista->mostrar("clientevistaprincipal.php", $data);
     }

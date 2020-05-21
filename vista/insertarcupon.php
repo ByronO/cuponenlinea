@@ -42,13 +42,21 @@
                 <label for="nombre">Nombre de cupón</label>
                 <input required type="text" name="nombre" id="nombre" value="<?php echo $nombre?>"/>
             </div>
+            <label for="descripcion">Descripción</label>
             <div>
-                <label for="descripcion">Descripción</label>
-                <input required type="text" name="descripcion" id="descripcion" value="<?php echo $descripcion?>"/>
+                <textarea required rows="3" cols="50" name="descripcion" id="descripcion" value="<?php echo $descripcion?>"></textarea>
+            </div>
+            <label for="detalles">Detalles</label>
+            <div>
+                <textarea required rows="3" cols="50" name="detalles" id="detalles" value="<?php echo $detalles?>"></textarea>
             </div>
             <div>
-                <label for="detalles">Detalles</label>
-                <input required type="text" name="detalles" id="detalles" value="<?php echo $detalles?>"/>
+                <label for="detalles">Fecha de inicio</label>
+                <input required type="date" name="fechainicio" id="fechainicio" value="<?php echo date("Y-m-d");?>" min="<?php echo date("Y-m-d");?>"/>
+            </div>
+            <div>
+                <label for="detalles">Fecha final</label>
+                <input required type="date" name="fechafin" id="fechafin" value="<?php echo date("Y-m-d");?>" min="<?php echo date("Y-m-d");?>"/>
             </div>
             <div>
                 <label for="restricciones">Restricciones</label>

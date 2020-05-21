@@ -67,24 +67,26 @@ CREATE TABLE tbservicio(
 );
 
 CREATE TABLE tbservicioimagen(
-		id int PRIMARY KEY,
+    id int PRIMARY KEY,
     servicioid int,
     serviciovalor varchar(50),
     ruta varchar(150)
-)
+);
 
 CREATE TABLE tbcupon(
 	cuponid int PRIMARY KEY,
-  cuponnombre varchar(50),
-  empresaid int,
-  serviciovalor varchar(250),
-  cuponrutaimagen varchar(150),
-  cupondescripcion varchar(500),
-  cupondetallesadicionales varchar(500),
-  cuponrestricciones varchar(500),
-  cuponprecio int,
-  cuponestado int
-)
+    cuponnombre varchar(50),
+    empresaid int,
+    serviciovalor varchar(250),
+    cuponrutaimagen varchar(150),
+    cupondescripcion varchar(500),
+    cupondetallesadicionales varchar(500),
+    cuponrestricciones varchar(500),
+    cuponfechainicio date,
+    cuponfechafin date,
+    cuponprecio int,
+    cuponestado int
+);
 
 CREATE TABLE tbempresaubicacion(
 	id int PRIMARY KEY,
@@ -94,6 +96,7 @@ CREATE TABLE tbempresaubicacion(
     otrassenas VARCHAR(300),
     empresaid int
 );
+
 CREATE TABLE tbclientedireccion (
 	id INT PRIMARY KEY,
     clienteubicacion VARCHAR(500),
