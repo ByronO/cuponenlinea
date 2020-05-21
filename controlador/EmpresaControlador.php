@@ -26,6 +26,9 @@ if (!isset($_SESSION['contactos'])) {
 if (!isset($_SESSION['contactoE'])) {
     $_SESSION['contactoE'] = array();
 }
+if(!isset($_SESSION['ubicacioncompleta'])){
+    $_SESSION['ubicacioncompleta'] = "";
+}
 class EmpresaControlador{
     
     private $vista;
@@ -37,11 +40,10 @@ class EmpresaControlador{
     public function insertar(){
         require rutaData.'empresaData.php';
         $empresaData = new empresaData();
-        
         if(isset($_POST['create'])){
-            if(isset($_POST['nombre']) && isset($_POST['ubicacion'])){
+            if(isset($_POST['nombre']) && isset($_POST['provincias'])){
                 
-                $empresa = new empresa(0,0, $_POST['nombre'],$_POST['ubicacion'],1, $_POST['tipo'],$_POST['cedula'],$_POST['sitio']);
+                $empresa = new empresa(0,0, $_POST['nombre'],($_SESSION['ubicacioncompleta'][0].",".$_SESSION['ubicacioncompleta'][1].",".$_SESSION['ubicacioncompleta'][2]),1, $_POST['tipo'],$_POST['cedula'],$_POST['sitio']);
                 
                 if($empresaData->insertar($empresa)){
                     $data['mensaje'] = 'Empresa creada correctamente';
@@ -63,6 +65,7 @@ class EmpresaControlador{
         unset($_SESSION['criteriosContacto']);
         unset($_SESSION['contactos']);
         unset($_SESSION['contactoE']);
+        unset($_SESSION['ubicacioncompleta']);
         
         $this->vista->mostrar("insertarempresa.php", $data);
 
@@ -221,9 +224,9 @@ class EmpresaControlador{
         }
 
         if($empresaData->actualizarServicio($_SESSION['servicioE'][0]->getservicioid(), $criteriosNuevos, $serviciosNuevos)){
-            $data['mensaje'] = 'Servicios agregados correctamente';
-        }else $data['mensaje'] = 'Error al agregar servicios a la empresa';
-
+            $data['mensaje2'] = 'Servicios agregados correctamente';
+        }else $data['mensaje2'] = 'Error al agregar servicios a la empresa';
+      
         unset($_SESSION['criterios']);
         unset($_SESSION['servicios']);
         $data['servicios'] = $empresaData->obtenerEmpresaServicio($_SESSION['servicioE'][0]->getempresaid());
@@ -312,12 +315,12 @@ class EmpresaControlador{
                    
                 }else{
                     $criteriosNuevos .= $_SESSION['contactoE'][0]->getempresacontactocriterio()[$cont] . ',';
-                    $contactosNuevos .= $_SESSION['contactoE'][0]->getempesacontactovalor()[$cont] . ',';
+                    $contactosNuevos .= $_SESSION['contactoE'][0]->getempresacontactovalor()[$cont] . ',';
                 }
                 $cont++;
             }
 
-            if($empresaData->eliminarContacto($_SESSION['contactoE'][0]->getempesacontactoid(), $criteriosNuevos, $contactosNuevos)){
+            if($empresaData->eliminarContacto($_SESSION['contactoE'][0]->getempresacontactoid(), $criteriosNuevos, $contactosNuevos)){
                 $data['mensaje2'] = 'Contacto eliminado correctamente';
             }else $data['mensaje2'] = 'Error al eliminar la empresa';
 
@@ -358,6 +361,34 @@ class EmpresaControlador{
             echo "Alguno de los valores ya fueron agregados";
         }
     }
+
+    public function actualizarContactos(){        
+        require rutaData.'empresaData.php';
+        $empresaData = new empresaData();
+
+        $cont = 0;
+        $criteriosNuevos = "";
+        $contactosNuevos = "";
+
+        $cont = 0;
+        foreach ($_SESSION['contactos'] as $se) {
+            $criteriosNuevos .= $_SESSION['criteriosContacto'][$cont] . ',';
+            $contactosNuevos .= $_SESSION['contactos'][$cont] . ',';
+            
+            $cont++;
+        }
+
+        if($empresaData->actualizarContacto($_SESSION['contactoE'][0]->getempresacontactoid(), $criteriosNuevos, $contactosNuevos)){
+            $data['mensaje'] = 'Contactos agregados correctamente';
+        }else $data['mensaje'] = 'Error al agregar contactos a la empresa';
+
+        unset($_SESSION['criteriosContacto']);
+        unset($_SESSION['contactos']);
+        $data['contactos'] = $empresaData->obtenerEmpresaContacto($_SESSION['contactoE'][0]->getempresaid());
+        $this->vista->mostrar("mostrarcontactos.php", $data);
+
+    }
+
     public function obtenerContactosEmpresa(){
         
         require rutaData.'empresaData.php';
@@ -372,14 +403,22 @@ class EmpresaControlador{
         }
 
     }
+      public function agregarUbicacion()
+    {
+        
+        $ubicacion = $_POST['ubicacion'];
+        $id = $_POST['id'];
 
-
-
-    public function actualizarContactos(){
-
+        $_SESSION['ubicacioncompleta'][$id]=$ubicacion;
+        $cont =0;
+        foreach ($_SESSION['ubicacioncompleta'] as $cr) {
+            echo $_SESSION['ubicacioncompleta'][$cont];
+            $cont++;
+        }
 
 
     }
 } // OrderController
+  
 
 ?>

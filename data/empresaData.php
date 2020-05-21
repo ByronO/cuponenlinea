@@ -34,6 +34,8 @@ class empresaData extends Conexion {
         $resultado = $consulta->execute();
         
         $consulta->close();
+        //AQUI HACE FALTA LA PARTE PARA AGREGAR EN LA OTRA TABLA CON CADA UNO DE LAS UBICACIONES
+        
 
         //INSERTAR SERVICIOS LIGADOS
         $ultimoIdS = $mysql->prepare("SELECT MAX(servicioid) AS id FROM " . TBL_SERVICIO);
@@ -67,7 +69,7 @@ class empresaData extends Conexion {
 
 
         //INSERTAR CONTACTOS LIGADOS 
-        $ultimoIdC = $mysql->prepare("SELECT MAX(empesacontactoid) AS id FROM " . TBL_EMPRESACONTACTO);
+        $ultimoIdC = $mysql->prepare("SELECT MAX(empresacontactoid) AS id FROM " . TBL_EMPRESACONTACTO);
         $ultimoIdC->execute();
         $idC = 1;
         if ($fila = $ultimoIdC->get_result()->fetch_row()) {
@@ -83,8 +85,8 @@ class empresaData extends Conexion {
                 
             $cont++;
         }
-        $consulta = $mysql->prepare("INSERT INTO ". TBL_EMPRESACONTACTO ."(empesacontactoid, empresacontactocriterio, empesacontactovalor, empresaid) 
-                                        VALUES('$idC','$criterioC','$contacto','$id');");
+        $consulta = $mysql->prepare("INSERT INTO ". TBL_EMPRESACONTACTO ."(empresacontactoid, empresacontactocriterio, empresacontactovalor,empresafechainscripcion, empresaid) 
+                                        VALUES('$idC','$criterioC','$contacto',now(),'$id');");
 
         $resultado = $consulta->execute();
          
@@ -242,7 +244,7 @@ class empresaData extends Conexion {
     public function obtenerEmpresaContacto($id) {
         $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
         
-        $consulta = $mysql->prepare("SELECT empesacontactoid, empresacontactocriterio, empesacontactovalor FROM  " . TBL_EMPRESACONTACTO . " WHERE empresaid='$id'");
+        $consulta = $mysql->prepare("SELECT empresacontactoid, empresacontactocriterio, empresacontactovalor,empresafechainscripcion FROM  " . TBL_EMPRESACONTACTO . " WHERE empresaid='$id'");
         
         $consulta->execute();
         
@@ -261,8 +263,10 @@ class empresaData extends Conexion {
          */
         $criterios = explode(",", $resultado[1]);
         $valores = explode(",", $resultado[2]);
+        $fechainscripcion = explode(",",$resultado[3]);
+        $fechadesafiliacion = "";
+        $contactos = new contacto($resultado[0],$criterios,$valores,$fechainscripcion,$fechadesafiliacion,$id);
         
-        $contactos = new contacto($resultado[0],$criterios,$valores,$id);
         return $contactos;
     }
 
@@ -345,7 +349,27 @@ class empresaData extends Conexion {
     public function eliminarContacto($id, $criterios, $valores){
         $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
         
-        $consulta = $mysql->prepare("UPDATE " . TBL_EMPRESACONTACTO . " SET empresacontactocriterio='$criterios', empesacontactovalor = '$valores' WHERE empesacontactoid='$id'");
+        $consulta = $mysql->prepare("UPDATE " . TBL_EMPRESACONTACTO . " SET empresacontactocriterio='$criterios', empresacontactovalor = '$valores' WHERE empresacontactoid='$id'");
+
+        $resultado = $consulta->execute();
+        
+        $consulta->close();
+
+        
+        return $resultado;
+    }
+    public function actualizarContacto($id, $criterios, $valores){
+        $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
+
+        $consulta = $mysql->prepare("SELECT empresacontactocriterio, empresacontactovalor FROM  " . TBL_EMPRESACONTACTO . " WHERE empresacontactoid='$id'");
+        $consulta->execute();
+        $resultado = $consulta->get_result()->fetch_array();
+        
+        $consulta->close();
+        $criteriosNuevos = $resultado[0] .',' . $criterios;
+        $valoresNuevos = $resultado[1]  .',' . $valores; 
+
+        $consulta = $mysql->prepare("UPDATE " . TBL_EMPRESACONTACTO . " SET empresacontactocriterio='$criteriosNuevos', empresacontactovalor = '$valoresNuevos' WHERE empresacontactoid='$id'");
 
         $resultado = $consulta->execute();
         

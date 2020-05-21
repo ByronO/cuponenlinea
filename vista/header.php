@@ -18,7 +18,7 @@
         <title> Proyecto Gestion </title>
             <?php } ?>
     </head>
-    <body>
+    <body id="body">
         <a href="?controlador=Empresa&accion=insertar"> Empresa </a>
         <a href="?controlador=Usuario&accion=Inicio"> Cerrar Sesión </a>
         

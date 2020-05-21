@@ -1,3 +1,5 @@
+<script src="jquery-2.2.3.min.js" type="text/javascript"></script>
+
 <?php
 if(isset($vars['empresa'])){
     $empresa = $vars['empresa'];
@@ -6,6 +8,10 @@ if(isset($vars['empresa'])){
     $codigo = $empresa->getempresacodigo();
     $nombre = $empresa->getempresanombre();
     $ubicacion = $empresa->getempresaubicacion();
+    //$ubicacionprovincia = $empresa->getempresaubicacionprovincia();
+    //$ubicacioncanton = $empresa->getempresaubicacioncanton();
+    //$ubicaciondistrito = $empresa->getempresaubicaciondistrito();
+    //$ubicacionotrassenas = $empresa ->getempresaubicacionotrassenas();
     $tipo = $empresa->getempresacategoria();
     $cedula = $empresa->getempresacedula();
     $sitio = $empresa->getempresasitioweb();
@@ -15,6 +21,10 @@ if(isset($vars['empresa'])){
     $codigo = '';
     $nombre = '';
     $ubicacion = '';
+    //$ubicacionprovincia = '';
+    //$ubicacioncanton = '';
+    //$ubicaciondistrito = '';
+    //$ubicacionotrassenas = '';
     $tipo = '';
     $cedula = '';
     $sitio = '';
@@ -27,8 +37,25 @@ if(isset($vars['empresa'])){
     <input required type="text" name="nombre" id="nombre" value="<?php echo $nombre?>"/>
 </div>
 <div>
-    <label for="ubicacion">Ubicación</label>
-    <input required type="text" name="ubicacion" id="ubicacion" value="<?php echo $ubicacion?>"/>
+    <label for="ubicacionprovincia">Seleccione provincia</label>
+    <select name="provincias" id="provincias">
+        <option value=0>Seleccione provincia
+        
+        
+        </option>
+    </select>
+</div>
+<div>
+    <label for="ubicacioncanton">Seleccione cantón</label>
+    <select id="canton" name="canton"></select>
+</div>
+<div>
+    <label for="ubicaciondistrito">Seleccione distrito</label>
+    <select id="distrito" name="distrito"></select>
+</div>
+<div>
+    <label for="otrassenas">Otras señas</label>
+    <input required type="text" name="otrassenas" id="otrassenas" value=""/>
 </div>
 <div>
     <label for="tipo">Categoría</label>
@@ -52,3 +79,4 @@ if(isset($vars['empresa'])){
     <label for="sitio">Sitio Web</label>
     <input required type="text" name="sitio" id="sitio" value="<?php echo $sitio?>"/>
 </div>
+

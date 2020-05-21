@@ -2,16 +2,20 @@
 class contacto{
 
     private $empresaid;
-    private $empesacontactoid;
+    private $empresacontactoid;
     private $empresacontactocriterio;
-	private $empesacontactovalor;
+	private $empresacontactovalor;
+	private $empresafechainscripcion;
+	private $empresafechadesafiliacion;
     
-	function contacto($empesacontactoid, $empresacontactocriterio, $empesacontactovalor, $empresaid) {
+	function contacto($empresacontactoid, $empresacontactocriterio, $empresacontactovalor,$empresafechainscripcion,$empresafechadesafiliacion,$empresaid) {
 
         $this->empresaid = $empresaid;
-        $this->empesacontactoid = $empesacontactoid;
+        $this->empresacontactoid = $empresacontactoid;
         $this->empresacontactocriterio = $empresacontactocriterio;
-		$this->empesacontactovalor = $empesacontactovalor;
+		$this->empresacontactovalor = $empresacontactovalor;
+		$this->empresafechainscripcion = $empresafechainscripcion;
+		$this->empresafechadesafiliacion = $empresafechadesafiliacion;
     }
 
 	function getempresaid() { 
@@ -21,11 +25,11 @@ class contacto{
 		$this->empresaid = $empresaid; 
 	}
 	
-	function getempesacontactoid() { 
-		return $this->empesacontactoid; 
+	function getempresacontactoid() { 
+		return $this->empresacontactoid; 
 	}
-	function setempesacontactoid($empesacontactoid) { 
-		$this->empesacontactoid = $empesacontactoid; 
+	function setempresacontactoid($empresacontactoid) { 
+		$this->empresacontactoid = $empresacontactoid; 
 	}
 	
 	function getempresacontactocriterio() { 
@@ -35,11 +39,23 @@ class contacto{
 		$this->empresacontactocriterio = $empresacontactocriterio; 
 	}
 	
-	function getempesacontactovalor() { 
-		return $this->empesacontactovalor; 
+	function getempresacontactovalor() { 
+		return $this->empresacontactovalor; 
 	}
-	function setempesacontactovalor($empesacontactovalor) { 
-		$this->empesacontactovalor = $empesacontactovalor; 
+	function setempresacontactovalor($empresacontactovalor) { 
+		$this->empresacontactovalor = $empresacontactovalor; 
+	}
+	function getempresafechainscripcion(){
+		return $this->empresafechainscripcion;
+	}
+	function setempresafechainscripcion($empresafechainscripcion){
+		$this->empresafechainscripcion = $empresafechainscripcion;
+	}
+	function getempresafechadesafiliacion(){
+		return $this->empresafechadesafiliacion;
+	}
+	function setempresafechadesafiliacion($empresafechadesafiliacion){
+		$this->empresafechadesafiliacion=$empresafechadesafiliacion;
 	}
 }
 ?>

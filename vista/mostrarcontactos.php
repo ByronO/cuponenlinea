@@ -24,7 +24,7 @@
                     ?>
                     <tr>
                         <td> <?php echo $vars['contactos']->getempresacontactocriterio()[$cont]?> </td>
-                        <td> <?php echo $vars['contactos']->getempesacontactovalor()[$cont]?> </td>
+                        <td> <?php echo $vars['contactos']->getempresacontactovalor()[$cont]?> </td>
                         <td> <a href="?controlador=Empresa&accion=eliminarContacto&criterio=<?php echo $vars['contactos']->getempresacontactocriterio()[$cont]; ?>">Borrar</a></td>
                     </tr>
             <?php   }
@@ -42,28 +42,30 @@
 
     </div>
 
-    <!-- SERVICIOS DE LA EMPRESA -->
+    <!-- CONTACTOS DE LA EMPRESA -->
     <div class="col-sm-3" style="text-align: center">
-        <h2>Agregar contactos brindados</h2>
-        <form method="post" enctype="multipart/form-data" action="?controlador=Empresa&accion=actualizarServicios">
+        <h2>Agregar contacto brindados</h2>
+        <form method="post" enctype="multipart/form-data" action="?controlador=Empresa&accion=actualizarContactos">
             <div class="row">
                 <div class="col-sm-6">
-                    <label for="criterioNC">Criterio</label><br>
-                    <input required type="text" name="criterioNC" id="criterioNC" value=""/>
+                    <label for="criterioC">Criterio</label><br>
+                    <input type="text" name="criterioC" id="criterioC" value=""/>
                 </div>
                 <div class="col-sm-6">
-                    <label for="valorNC">Valor</label><br>
-                    <input required type="text" name="valorNC" id="valorNC" value=""/>
+                    <label for="valor">Valor</label><br>
+                    <input type="text" name="valor" id="valorC" value=""/>
                 </div>
             </div>
             <br>
             <input type="button" href="javascript:;"
-            onclick="actualizarServicios($('#criterioNC').val(), $('#valorNC').val());return false;" value="Añadir contacto">
-            <!--<input type="submit" value="Añadir servicio" name="agregar" id="agregar"/>
-                -->
+            onclick="actualizarContactos($('#criterioC').val(), $('#valorC').val());return false;" value="Añadir contacto">
+            <br><br>
+            
+            <input type="submit" value="Agregar contactos" name="agregar" id="agregar"/>
+            
         </form>
 
-            <p style="color: green" id="mensaje2"></p>
+            <p style="color: green" id="mensaje"></p>
             
             <br><br>
             <h3>Lista de contactos agregados</h3>
@@ -73,7 +75,7 @@
                 <th>Contacto</th>
                 </thead>
                 
-                <tbody id="filasNC">
+                <tbody id="filasC">
                     <tr>
                     </tr>
                 </tbody>

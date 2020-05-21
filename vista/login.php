@@ -16,7 +16,7 @@
             <?php } ?>
     </head>
     <body>
-    <a href="?controlador=Usuario&accion=loginView"> Iniciar Sesión </a>
+    <a id="enlaceajax" href="?controlador=Usuario&accion=loginView"> Iniciar Sesión </a>
     
 <h1> Iniciar Sesión</h1>
 

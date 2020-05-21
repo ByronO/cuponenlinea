@@ -10,7 +10,8 @@
             <?php } ?>
     </head>
     <body>
-        <a href="?controlador=Usuario&accion=login"> Iniciar Sesión </a>
+                
+        <a id="enlaceajax" href="?controlador=Usuario&accion=login"> Iniciar Sesión </a>
         
 
 
