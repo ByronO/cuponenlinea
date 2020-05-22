@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 class ClienteControlador{
     
     private $vista;
@@ -16,6 +16,20 @@ class ClienteControlador{
     public function vistadatobanco(){
         $data['mensaje'] = '';
         $this->vista->mostrar("insertarclientedatobancario.php", $data);
+    }
+
+    public function vistarecomendarclientecupon(){
+        require_once rutaData.'cuponData.php';
+        $cuponData = new cuponData();
+        $data['cuponesrecomendar'] = $cuponData->obtenerTodos();
+
+        require_once rutaData.'clienteData.php';
+        $clienteData = new clienteData();
+        $data['clientesAmigos'] = $clienteData->obtenertodoclientes();
+        $data['cuponesrecomendados']=$clienteData->obtenercuponesrecomendados($_SESSION['count']);
+
+        $data['mensaje'] = '';
+        $this->vista->mostrar("insertarrecomendarclientecupon.php", $data);
     }
 
     public function insertarclientenuevo(){
@@ -37,6 +51,33 @@ class ClienteControlador{
         $this->vista->mostrar("insertarcliente.php", $data);
     } // insert
     
+    public function clienterecomendarcupon(){
+        require rutaData.'clienteData.php';
+        $clienteData = new clienteData();
+        
+        if(isset($_POST['create'])){
+            if(isset($_POST['cuponrecomendadoid']) && isset($_POST['clientereceptorid'])){
+        $emisor=$_SESSION['count'];
+        $clienterecomendar = new clienterecomendarcupon(0,$_POST['cuponrecomendadoid'],$emisor,$_POST['clientereceptorid'],0,0);
+               
+                if($clienteData->insertarclienterecomendarcupon($clienterecomendar)){
+                    $data['mensaje'] = 'Cupón recomendado correctamente';
+                }else $data['mensaje'] = 'Error al insertar';
+                
+            }else $data = null;
+        }else $data = null;
+        require_once rutaData.'cuponData.php';
+        $cuponData = new cuponData();
+        $data['cuponesrecomendar'] = $cuponData->obtenerTodos();
+
+        require_once rutaData.'clienteData.php';
+        $clienteData = new clienteData();
+        $data['clientesAmigos'] = $clienteData->obtenertodoclientes();
+        $data['cuponesrecomendados']=$clienteData->obtenercuponesrecomendados($_SESSION['count']);
+
+        $data['mensaje'] = '';
+        $this->vista->mostrar("insertarrecomendarclientecupon.php", $data);
+    } // insert
     
 } // OrderController
 

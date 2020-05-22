@@ -1,6 +1,8 @@
 <a href="?controlador=Usuario&accion=Inicio"> Cerrar Sesión </a>
 <a href="?controlador=Cliente&accion=vistadatobanco"> Registrar Datos Bancarios </a>
 <a href="?controlador=Clientecontacto&accion=vistainsertarcontactos"> Ingresar Contacto </a>
+<a href="?controlador=Cliente&accion=vistarecomendarclientecupon"> Recomendar Cupones </a>
+
 <table>
     <thead>
     <th>Banco</th>
