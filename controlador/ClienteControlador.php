@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 class ClienteControlador{
     
     private $vista;
@@ -8,13 +9,18 @@ class ClienteControlador{
         $this->vista=new View();
     } // constructor
     
+    
     public function vistaRegistro(){
         $data['mensaje'] = '';
         $this->vista->mostrar("insertarcliente.php", $data);
     }
 
     public function vistadatobanco(){
+
+        require rutaData.'datobancarioData.php';
+        $datobancarioData = new datobancarioData();
         $data['mensaje'] = '';
+        $data['cuentas'] = $datobancarioData->obtenerCuentasId($_SESSION['count']);
         $this->vista->mostrar("insertarclientedatobancario.php", $data);
     }
 
@@ -79,6 +85,18 @@ class ClienteControlador{
         $this->vista->mostrar("insertarrecomendarclientecupon.php", $data);
     } // insert
     
-} // OrderController
+    public function inicio(){
+        require rutaData.'cuponData.php';
+        $cuponData = new cuponData();
+
+        $data['cupones'] = $cuponData->obtenerTodos();
+        
+        $this->vista->mostrar("clientevistaprincipal.php", $data);
+        
+    }
+
+
+
+} // 
 
 ?>

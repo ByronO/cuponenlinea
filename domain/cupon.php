@@ -9,11 +9,13 @@ class cupon {
   private $cuponrutaimagen;
   private $cupondescripcion;
   private $cupondetallesadicionales;
+  private $cuponfechainicio;
+  private $cuponfechafin;
   private $cuponrestricciones;
   private $cuponprecio;
   private $cuponestado;
     
-	function cupon($cuponid, $cuponnombre, $empresaid, $serviciovalor,$cuponrutaimagen, $cupondescripcion, $cupondetallesadicionales,$cuponrestricciones,$cuponprecio, $cuponestado) {
+	function cupon($cuponid, $cuponnombre, $empresaid, $serviciovalor,$cuponrutaimagen, $cupondescripcion, $cupondetallesadicionales, $cuponrestricciones,$cuponprecio, $cuponestado, $cuponfechainicio, $cuponfechafin) {
 
 
         $this->cuponid = $cuponid;
@@ -25,7 +27,9 @@ class cupon {
         $this->cupondetallesadicionales = $cupondetallesadicionales;
         $this->cuponrestricciones = $cuponrestricciones;
         $this->cuponprecio = $cuponprecio;
-        $this->cuponestado = $cuponestado;
+		$this->cuponestado = $cuponestado;
+		$this->cuponfechainicio = $cuponfechainicio;
+        $this->cuponfechafin = $cuponfechafin;
 
     }
 
@@ -97,6 +101,20 @@ class cupon {
 	}
 	function setcupondetallesadicionales($cupondetallesadicionales) { 
 		$this->cupondetallesadicionales = $cupondetallesadicionales; 
+	}
+
+	function getcuponfechainicio() { 
+		return $this->cuponfechainicio; 
+	}
+	function setcuponfechainicio($cuponfechainicio) { 
+		$this->cuponfechainicio = $cuponfechainicio; 
+	}
+
+	function getcuponfechafin() { 
+		return $this->cuponfechafin; 
+	}
+	function setcuponfechafin($cuponfechafin) { 
+		$this->cuponfechafin = $cuponfechafin; 
 	}
 }
 ?>

@@ -41,11 +41,10 @@ class UsuarioControlador{
 
     public function verificar(){
 
-        require rutaData.'UsuarioData.php';
+        require rutaData.'usuarioData.php';
         $usuarioData = new usuarioData();
 
-        require rutaData.'datobancarioData.php';
-        $datobancarioData = new datobancarioData();
+        
 
         if(isset($_POST['create'])){
             if(isset($_POST['usuario']) && isset($_POST['contra'])){
@@ -65,7 +64,12 @@ class UsuarioControlador{
                     $data['usuarioinicio'] = $usuarioData->verificarcliente($usuario);   
                     $clienteconfir = implode(" ", $data['usuarioinicio']);
                     $_SESSION['count'] = $clienteconfir;
-                    $data['cuentas'] = $datobancarioData->obtenerCuentasId($_SESSION['count']);
+
+                    require rutaData.'cuponData.php';
+                    $cuponData = new cuponData();
+
+                    $data['cupones'] = $cuponData->obtenerTodos();
+                    
                     $data['mensaje'] = '';
                     $this->vista->mostrar("clientevistaprincipal.php", $data);
                 }else {
