@@ -35,7 +35,7 @@
 </center>
 
 <section id="pricing" class="pricing">
-      <div class="container">
+    <div class="container">
 
         <div class="row">
             <?php 
@@ -60,5 +60,5 @@
             <?php  } ?>
             
         </div>
-      </div>
-    </section><!-- End Pricing Section -->
+    </div>
+</section><!-- End Pricing Section -->
