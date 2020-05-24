@@ -28,6 +28,7 @@
 <a href="?controlador=Cliente&accion=inicio"> Inicio </a>
 <a href="?controlador=Cliente&accion=vistadatobanco"> Registrar Datos Bancarios </a>
 <a href="?controlador=Clientecontacto&accion=vistainsertarcontactos"> Ingresar Contacto </a>
+<a href="?controlador=Cliente&accion=vistarecomendarclientecupon"> Recomendar Cupones </a>
 <a href="?controlador=Usuario&accion=Inicio"> Cerrar Sesión </a>
 
 <center>
