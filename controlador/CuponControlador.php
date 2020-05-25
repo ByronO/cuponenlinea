@@ -52,6 +52,8 @@ class CuponControlador{
         require rutaData.'empresaData.php';
         $empresaData = new empresaData();
 
+        require rutaData. 'clienteData.php';
+        $clienteData = new clienteData();
 
         $id = $_GET['id'];
 
@@ -62,7 +64,6 @@ class CuponControlador{
 
         $this->vista->mostrar("mostrarservicioscupon.php", $data);
 
-        
     }
 
     public function insertarCupon(){
@@ -100,7 +101,7 @@ class CuponControlador{
                         $cont++;
                     }
 
-                    $cuponData->insertarCupon($id,$_POST['nombre'], $_POST['empresaid'],$servicio, $dest_path, $_POST['descripcion'], $_POST['detalles'], $_POST['restricciones'],$_POST['precio'], 1, $_POST['fechainicio'] , $_POST['fechafin']);
+                    $cuponData->insertarCupon($id,$_POST['nombre'], $_POST['empresaid'],$servicio, $dest_path, $_POST['descripcion'], $_POST['detalles'], $_POST['tipo'], $_POST['restricciones'],$_POST['precio'], 1, $_POST['fechainicio'] , $_POST['fechafin']);
                     
 
                     require rutaData.'empresaData.php';

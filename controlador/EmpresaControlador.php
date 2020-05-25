@@ -46,7 +46,7 @@ class EmpresaControlador{
         if(isset($_POST['create'])){
             if(isset($_POST['nombre']) && isset($_POST['provincias'])){
                 
-                $empresa = new empresa(0,0, $_POST['nombre'],($_SESSION['ubicacioncompleta'][0].",".$_SESSION['ubicacioncompleta'][1].",".$_SESSION['ubicacioncompleta'][2]),1, $_POST['tipo'],$_POST['cedula'],$_POST['sitio']);
+                $empresa = new empresa(0,0, $_POST['nombre'],($_SESSION['ubicacioncompleta'][0].",".$_SESSION['ubicacioncompleta'][1].",".$_SESSION['ubicacioncompleta'][2]),$_POST['otrassenas'],1, $_POST['tipo'],$_POST['cedula'],$_POST['sitio']);
                 
                 if($empresaData->insertar($empresa)){
                     $data['mensaje'] = 'Empresa creada correctamente';
@@ -80,9 +80,9 @@ class EmpresaControlador{
         require rutaData.'empresaData.php';
         $empresaData = new empresaData();
         
-        if(isset($_POST['id']) && isset($_POST['nombre']) && isset($_POST['ubicacion'])){
-
-            $empresa = new empresa($_POST['id'], 0, $_POST['nombre'], $_POST['ubicacion'],1, $_POST['tipo'],$_POST['cedula'],$_POST['sitio']);
+        if(isset($_POST['id']) && isset($_POST['nombre'])){
+            
+            $empresa = new empresa($_POST['id'], 0, $_POST['nombre'],($_SESSION['ubicacioncompleta'][0].",".$_SESSION['ubicacioncompleta'][1].",".$_SESSION['ubicacioncompleta'][2]),$_POST['otrassenas'],1, $_POST['tipo'],$_POST['cedula'],$_POST['sitio']);
 
             if($empresaData->actualizar($empresa)){
                 $data['mensaje'] = 'Empresa actualizada correctamente';

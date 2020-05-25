@@ -1,5 +1,7 @@
 <?php
 session_start();
+
+
 class UsuarioControlador{
     
     private $vista;
@@ -68,7 +70,7 @@ class UsuarioControlador{
                     require rutaData.'cuponData.php';
                     $cuponData = new cuponData();
 
-                    $data['cupones'] = $cuponData->obtenerTodos();
+                    $data['cupones'] = $cuponData->obtenerTodosFiltrado();
                     
                     $data['mensaje'] = '';
                     $this->vista->mostrar("clientevistaprincipal.php", $data);

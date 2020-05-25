@@ -16,6 +16,7 @@
                 <th>Descripcion</th>
                 <th>Detalles</th>
                 <th>Servicios</th>
+                <th>Tipo</th>
                 <th>Fecha Inicio</th>
                 <th>Fechas fin</th>
                 <th>Restricciones</th>
@@ -34,6 +35,7 @@
                         <td> <?php echo $cupon->getcupondescripcion()?> </td>
                         <td> <?php echo $cupon->getcupondetallesadicionales()?> </td>
                         <td> <a href="?controlador=Cupon&accion=verServicios&id=<?php echo  $cupon->getcuponid(); ?>"><?php echo  $cupon->getserviciovalor(); ?></a></td>
+                        <td> <?php echo $cupon->getcupontipo()?> </td>
                         <td> <?php echo $cupon->getcuponfechainicio()?> </td>
                         <td> <?php echo $cupon->getcuponfechafin()?> </td>
                         <td> <?php echo $cupon->getcuponrestricciones()?> </td>

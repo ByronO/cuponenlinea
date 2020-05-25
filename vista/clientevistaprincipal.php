@@ -28,6 +28,7 @@
 <a href="?controlador=Cliente&accion=inicio"> Inicio </a>
 <a href="?controlador=Cliente&accion=vistadatobanco"> Registrar Datos Bancarios </a>
 <a href="?controlador=Clientecontacto&accion=vistainsertarcontactos"> Ingresar Contacto </a>
+<a href="?controlador=Cliente&accion=vistarecomendarclientecupon"> Recomendar Cupones </a>
 <a href="?controlador=Usuario&accion=Inicio"> Cerrar Sesión </a>
 
 <center>
@@ -53,7 +54,7 @@
                 
                 <br>
                 <div class="btn-wrap">
-                <a href="?controlador=Cupon&accion=verServicios&id=<?php echo  $cupon->getcuponid(); ?>" class="btn-success form-control" style="width = 50%;">Comprar Ahora!</a>
+                <a href="?controlador=Cliente&accion=verDetallesCupon&id=<?php echo  $cupon->getcuponid(); ?>" class="btn-success form-control" style="width = 50%;">Comprar Ahora!</a>
                 </div>
             </div>
           </div>

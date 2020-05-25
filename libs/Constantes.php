@@ -15,6 +15,8 @@ define("TBL_DATOBANCO",  "tbclientedatobancario");
 define("TBL_CLIENTECONTACTO",  "tbclientecontacto");
 define("TBL_SERVICIOIMAGEN",  "tbservicioimagen");
 define("TBL_CUPON",  "tbcupon");
+define("TBL_CUPONRECOMENDAR",  "tbclienterecomendarcupon");
+define("TBL_PERFIL",  "tbperfilcliente");
 
 define("rutaControlador",  "controlador/");
 define("rutaData",  "data/");

@@ -51,6 +51,16 @@
                 <textarea required rows="3" cols="50" name="detalles" id="detalles" value="<?php echo $detalles?>"></textarea>
             </div>
             <div>
+                <label for="tipo">Categoría</label>
+                <select required id="tipo" name="tipo">
+                <option value="Alimentacion" >Alimentación</option>
+                <option value="Alojamiento" >Alojamiento</option>
+                <option value="Entretenimiento" >Entretenimiento</option>
+                <option value="Turismo" >Turismo</option>
+                <option value="Relajación" >Relajación</option>
+            </select>
+            </div>
+            <div>
                 <label for="detalles">Fecha de inicio</label>
                 <input required type="date" name="fechainicio" id="fechainicio" value="<?php echo date("Y-m-d");?>" min="<?php echo date("Y-m-d");?>"/>
             </div>
