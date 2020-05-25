@@ -20,11 +20,12 @@ class clienteData extends Conexion {
     
         $correo = $cliente->getclientecorreo();
         $contra = $cliente->getclientecontrasenna();
+        $direccion = $cliente->getclientedireccion();
        
         $consulta = 
         $mysql->prepare
-        ("INSERT INTO ". TBL_CLIENTE ."(clienteid,clientecorreo,clientecontrasenna,clienteestado,clientefechainscripcion,clientefechadedesafiliacion) 
-        VALUES('$id','$correo','$contra',1,NOW(),NOW());");
+        ("INSERT INTO ". TBL_CLIENTE ."(clienteid,clientecorreo,clientecontrasenna,clientedireccion,clienteestado,clientefechainscripcion,clientefechadedesafiliacion) 
+        VALUES('$id','$correo','$contra','$direccion',1,NOW(),NOW());");
 
         $resultado = $consulta->execute();
         
@@ -111,6 +112,52 @@ class clienteData extends Conexion {
       return $clienterecomendarcupones;
          
     } // obtenerTodos
+
+    public function cantidadClicks($idCliente,$tipo){
+        $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
+    
+        $consulta = $mysql->prepare("select perfilclienteid from tbperfilciente where perfilclienteidcliente = '$idCliente' and perfilclientecupontipo = '$tipo';");
+        
+        $consulta->execute();
+
+        $resultado = $consulta->get_result();
+    
+        $consulta->close();
+
+        $fila = $resultado->fetch_array();
+
+        
+        if(is_numeric($fila['perfilclienteid'])){
+            $idC = $fila['perfilclienteid'];
+            $consulta = $mysql->prepare("update tbperfilciente set perfilclientecantidadclicks = perfilclientecantidadclicks+1 where perfilclienteid = '$idC';");
+        
+            $consulta->execute();
+        
+            $consulta->close();
+
+            return 'nada';
+
+        }else{
+
+            $ultimoId = $mysql->prepare("SELECT MAX(perfilclienteid) AS id FROM tbperfilciente");
+            $ultimoId->execute();
+            $id = 1;
+            if ($fila = $ultimoId->get_result()->fetch_row()) {
+                $id = trim($fila[0]) + 1;
+            }
+
+            $ultimoId->close();
+
+            $consulta = $mysql->prepare("insert into tbperfilciente (perfilclienteid, perfilclienteidcliente, perfilclientecupontipo, perfilclientecantidadclicks) values ('$id','$idCliente','$tipo',1);");
+        
+            $consulta->execute();
+        
+            $consulta->close();
+
+            return 'no quiere';
+        }
+
+    }
   
 }
 ?>

@@ -14,8 +14,9 @@ class cupon {
   private $cuponrestricciones;
   private $cuponprecio;
   private $cuponestado;
+  private $cupontipo;
     
-	function cupon($cuponid, $cuponnombre, $empresaid, $serviciovalor,$cuponrutaimagen, $cupondescripcion, $cupondetallesadicionales, $cuponrestricciones,$cuponprecio, $cuponestado, $cuponfechainicio, $cuponfechafin) {
+	function cupon($cuponid, $cuponnombre, $empresaid, $serviciovalor,$cuponrutaimagen, $cupondescripcion, $cupondetallesadicionales, $cuponrestricciones,$cuponprecio, $cuponestado, $cuponfechainicio, $cuponfechafin, $cupontipo) {
 
 
         $this->cuponid = $cuponid;
@@ -29,7 +30,8 @@ class cupon {
         $this->cuponprecio = $cuponprecio;
 		$this->cuponestado = $cuponestado;
 		$this->cuponfechainicio = $cuponfechainicio;
-        $this->cuponfechafin = $cuponfechafin;
+		$this->cuponfechafin = $cuponfechafin;
+		$this->cupontipo = $cupontipo;
 
     }
 
@@ -45,6 +47,13 @@ class cupon {
 	}
 	function setcuponprecio($cuponprecio) { 
 		$this->cuponprecio = $cuponprecio; 
+	}
+	
+	function getcupontipo() { 
+		return $this->cupontipo; 
+	}
+	function setcupontipo($cupontipo) { 
+		$this->cupontipo = $cupontipo; 
     }
     
     function getcuponestado() { 

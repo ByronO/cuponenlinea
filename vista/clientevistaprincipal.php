@@ -36,7 +36,7 @@
 </center>
 
 <section id="pricing" class="pricing">
-      <div class="container">
+    <div class="container">
 
         <div class="row">
             <?php 
@@ -54,12 +54,12 @@
                 
                 <br>
                 <div class="btn-wrap">
-                <a href="?controlador=Cupon&accion=verServicios&id=<?php echo  $cupon->getcuponid(); ?>" class="btn-success form-control" style="width = 50%;">Comprar Ahora!</a>
+                <a href="?controlador=Cliente&accion=verDetallesCupon&id=<?php echo  $cupon->getcuponid(); ?>" class="btn-success form-control" style="width = 50%;">Comprar Ahora!</a>
                 </div>
             </div>
           </div>
             <?php  } ?>
             
         </div>
-      </div>
-    </section><!-- End Pricing Section -->
+    </div>
+</section><!-- End Pricing Section -->

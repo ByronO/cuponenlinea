@@ -1,6 +1,13 @@
 <?php
 session_start();
 
+if(!isset($_SESSION['ubicacioncompletaC'])){
+    $_SESSION['ubicacioncompletaC'] = array();
+}
+
+include 'domain/servicio.php';
+include 'domain/imagenservicio.php';
+
 class ClienteControlador{
     
     private $vista;
@@ -45,8 +52,9 @@ class ClienteControlador{
         if(isset($_POST['create'])){
             if(isset($_POST['correo']) && isset($_POST['contra'])){
                
-        $cliente = new cliente(0,$_POST['correo'],$_POST['contra'],1,0,0);
-                
+                   
+        $cliente = new cliente(0,$_POST['correo'],$_POST['contra'],($_SESSION['ubicacioncompletaC'][0].",".$_SESSION['ubicacioncompletaC'][1].",".$_SESSION['ubicacioncompletaC'][2]), 1,0,0);
+        echo $cliente->getclientedireccion();
                 if($clienteData->insertar($cliente)){
                     $data['mensaje'] = 'Cliente creado correctamente';
                 }else $data['mensaje'] = 'Error al insertar';
@@ -54,6 +62,7 @@ class ClienteControlador{
             }else $data = null;
         }else $data = null;
         $data['mensaje'] = '';
+        unset($_SESSION['ubicacioncompletaC']);
         $this->vista->mostrar("insertarcliente.php", $data);
     } // insert
     
@@ -89,12 +98,51 @@ class ClienteControlador{
         require rutaData.'cuponData.php';
         $cuponData = new cuponData();
 
-        $data['cupones'] = $cuponData->obtenerTodos();
-        
+        $data['cupones'] = $cuponData->obtenerTodosFiltrado();
+        unset($_SESSION['ubicacioncompletaC']);
         $this->vista->mostrar("clientevistaprincipal.php", $data);
         
     }
 
+    public function agregarUbicacion()
+    {
+        
+        $ubicacion = $_POST['ubicacion'];
+        $id = $_POST['id'];
+
+        $_SESSION['ubicacioncompletaC'][$id]=$ubicacion;
+        $cont =0;
+        foreach ($_SESSION['ubicacioncompleta'] as $cr) {
+            echo $_SESSION['ubicacioncompleta'][$cont];
+            $cont++;
+        }
+    }
+
+    public function verDetallesCupon(){
+        require rutaData.'cuponData.php';
+        $cuponData = new cuponData();
+
+        require rutaData.'empresaData.php';
+        $empresaData = new empresaData();
+
+        require rutaData. 'clienteData.php';
+        $clienteData = new clienteData();
+
+       
+
+        $id = $_GET['id'];
+
+        $data['cupon'] = $cuponData->obtenerDetallesCupon($id)[0];
+
+        $data['empresa'] = $cuponData->obtenerDetallesCupon($id)[1];
+
+        $data['imagenes'] = $empresaData->obtenerImageneServicio($cuponData->obtenerServicioId($data['cupon']->getempresaid()));
+
+        $clienteData->cantidadClicks($_SESSION['count'], $data['cupon']->getcupontipo());
+        
+        $this->vista->mostrar("mostrardetallescupon.php", $data);
+
+    }
 
 
 } // 

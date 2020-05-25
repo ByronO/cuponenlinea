@@ -8,6 +8,7 @@ if(isset($vars['empresa'])){
     $codigo = $empresa->getempresacodigo();
     $nombre = $empresa->getempresanombre();
     $ubicacion = $empresa->getempresaubicacion();
+    $otrassenas = $empresa->getempresaotrassenas();
     $tipo = $empresa->getempresacategoria();
     $cedula = $empresa->getempresacedula();
     $sitio = $empresa->getempresasitioweb();
@@ -17,6 +18,7 @@ if(isset($vars['empresa'])){
     $codigo = '';
     $nombre = '';
     $ubicacion = '';
+    $otrassenas = '';
     $tipo = '';
     $cedula = '';
     $sitio = '';
@@ -46,7 +48,7 @@ if(isset($vars['empresa'])){
 </div>
 <div>
     <label for="otrassenas">Otras señas</label>
-    <input required type="text" name="otrassenas" id="otrassenas" value=""/>
+    <input required type="text" name="otrassenas" id="otrassenas" value="<?php echo $otrassenas?>"/>
 </div>
 <div>
     <label for="tipo">Categoría</label>

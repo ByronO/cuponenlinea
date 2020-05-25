@@ -22,13 +22,14 @@ class empresaData extends Conexion {
         $codigo = $empresa->getempresacodigo();
         $nombre = $empresa->getempresanombre();
         $ubicacion = $empresa->getempresaubicacion();
+        $otrassenas = $empresa->getempresaotrassenas();
         $tipo = $empresa->getempresacategoria();
         $cedula= $empresa->getempresacedula();
         $sitio= $empresa->getempresasitioweb();
         
         $consulta = 
         $mysql->prepare
-        ("INSERT INTO ". TBL_EMPRESA ."(empresaid,empresacodigo,empresanombre,empresaubicacion,empresaestado,empresacategoria,empresacedulajuridica,empresasitioweb) VALUES('$id','$tipo$id','$nombre','$ubicacion',1,'$tipo','$cedula','$sitio');");
+        ("INSERT INTO ". TBL_EMPRESA ."(empresaid,empresacodigo,empresanombre,empresaubicacion,empresaotrassennas,empresaestado,empresacategoria,empresacedulajuridica,empresasitioweb) VALUES('$id','$tipo$id','$nombre','$ubicacion','$otrassenas',1,'$tipo','$cedula','$sitio');");
 
 
         $resultado = $consulta->execute();
@@ -105,11 +106,12 @@ class empresaData extends Conexion {
         $codigo = $empresa->getempresacodigo();
         $nombre = $empresa->getempresanombre();
         $ubicacion = $empresa->getempresaubicacion();
+        $otrassenas = $empresa->getempresaotrassenas();
         $tipo = $empresa->getempresacategoria();
         $cedula= $empresa->getempresacedula();
         $sitio= $empresa->getempresasitioweb();
       
-        $consulta = $mysql->prepare("UPDATE " . TBL_EMPRESA . " SET empresacodigo='$codigo', empresanombre='$nombre', empresaubicacion='$ubicacion', 
+        $consulta = $mysql->prepare("UPDATE " . TBL_EMPRESA . " SET empresanombre='$nombre', empresaubicacion='$ubicacion', empresaotrassennas='$otrassenas', 
         empresacategoria='$tipo', empresacedulajuridica='$cedula', empresasitioweb='$sitio' WHERE empresaid='$id'");
 
  
@@ -125,7 +127,7 @@ class empresaData extends Conexion {
     public function obtenerTodos() {
         $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
         
-        $consulta = $mysql->prepare("SELECT empresaid,empresacodigo,empresanombre,empresaubicacion,empresacategoria,empresacedulajuridica,empresasitioweb FROM " . TBL_EMPRESA . " WHERE empresaestado=1;");
+        $consulta = $mysql->prepare("SELECT empresaid,empresacodigo,empresanombre,empresaubicacion,empresaotrassennas,empresacategoria,empresacedulajuridica,empresasitioweb FROM " . TBL_EMPRESA . " WHERE empresaestado=1;");
 
         
         $consulta->execute();
@@ -136,7 +138,7 @@ class empresaData extends Conexion {
         
         $empresas = [];
         while ($fila = $resultado->fetch_array()) {
-            $empresa = new empresa($fila['empresaid'], $fila['empresacodigo'], $fila['empresanombre'],$fila['empresaubicacion'],1, $fila['empresacategoria'],$fila['empresacedulajuridica'],$fila['empresasitioweb']);
+            $empresa = new empresa($fila['empresaid'], $fila['empresacodigo'], $fila['empresanombre'],$fila['empresaubicacion'],$fila['empresaotrassennas'],1, $fila['empresacategoria'],$fila['empresacedulajuridica'],$fila['empresasitioweb']);
 
             array_push($empresas, $empresa);
         }
@@ -147,7 +149,7 @@ class empresaData extends Conexion {
     public function obtenerEmpresaId($id) {
         $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
         
-        $consulta = $mysql->prepare("SELECT empresaid,empresacodigo,empresanombre,empresaubicacion,empresacategoria,empresacedulajuridica,empresasitioweb FROM  " . TBL_EMPRESA . " WHERE empresaid=?");
+        $consulta = $mysql->prepare("SELECT empresaid,empresacodigo,empresanombre,empresaubicacion,empresaotrassennas,empresacategoria,empresacedulajuridica,empresasitioweb FROM  " . TBL_EMPRESA . " WHERE empresaid=?");
         $consulta->bind_param("i", $id);
         
         $consulta->execute();
@@ -158,7 +160,7 @@ class empresaData extends Conexion {
         
         if($fila = $resultado->fetch_assoc()) {
 
-            $empresa = new empresa($fila['empresaid'], $fila['empresacodigo'], $fila['empresanombre'],$fila['empresaubicacion'],1, $fila['empresacategoria'],$fila['empresacedulajuridica'],$fila['empresasitioweb']);
+            $empresa = new empresa($fila['empresaid'], $fila['empresacodigo'], $fila['empresanombre'],$fila['empresaubicacion'],$fila['empresaotrassennas'],1, $fila['empresacategoria'],$fila['empresacedulajuridica'],$fila['empresasitioweb']);
             return $empresa;
         }
         

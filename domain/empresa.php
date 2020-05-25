@@ -6,18 +6,20 @@ class empresa {
   private $empresacodigo;
   private $empresanombre;
   private $empresaubicacion;
+  private $empresaotrassenas;
   private $empresaestado;
   private $empresacategoria;
   private $empresacedula;
   private $empresasitioweb;
     
-	function empresa($empresaid, $empresacodigo, $empresanombre, $empresaubicacion,$empresaestado,$empresacategoria,$empresacedula,$empresasitioweb) {
+	function empresa($empresaid, $empresacodigo, $empresanombre, $empresaubicacion,$empresaotrassenas,$empresaestado,$empresacategoria,$empresacedula,$empresasitioweb) {
 
 
         $this->empresaid = $empresaid;
         $this->empresacodigo = $empresacodigo;
         $this->empresanombre = $empresanombre;
-        $this->empresaubicacion = $empresaubicacion;
+		$this->empresaubicacion = $empresaubicacion;
+		$this->empresaotrassenas = $empresaotrassenas;
         $this->empresaestado = $empresaestado;
         $this->empresacategoria = $empresacategoria;
         $this->empresacedula = $empresacedula;
@@ -65,6 +67,13 @@ class empresa {
 	}
 	function setempresaubicacion($empresaubicacion) { 
 		$this->empresaubicacion = $empresaubicacion; 
+	}
+
+	function getempresaotrassenas() { 
+		return $this->empresaotrassenas; 
+	}
+	function setempresaotrassenas($empresaotrassenas) { 
+		$this->empresaotrassenas = $empresaotrassenas; 
 	}
 
 	function getempresaestado() { 

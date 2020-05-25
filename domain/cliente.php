@@ -6,14 +6,16 @@ class cliente {
 	private $clientecontrasenna;
 	private $clienteestado;
     private $clientefechainscripcion;
-    private $clientefechadedesafiliacion;
+	private $clientefechadedesafiliacion;
+	private $clientedireccion;
 	
 
-	function cliente($clienteid,$clientecorreo, $clientecontrasenna,$clienteestado,$clientefechainscripcion,$clientefechadedesafiliacion) {
+	function cliente($clienteid,$clientecorreo, $clientecontrasenna,$clientedireccion,$clienteestado,$clientefechainscripcion,$clientefechadedesafiliacion) {
 
         $this->clienteid = $clienteid;
         $this->clientecorreo = $clientecorreo;
-        $this->clientecontrasenna = $clientecontrasenna;
+		$this->clientecontrasenna = $clientecontrasenna;
+		$this->clientedireccion = $clientedireccion;
         $this->clienteestado = $clienteestado;
         $this->clientefechainscripcion = $clientefechainscripcion;
         $this->clientefechadedesafiliacion = $clientefechadedesafiliacion;
@@ -39,6 +41,13 @@ class cliente {
 	}
 	function setclientecontrasenna($clientecontrasenna) { 
 		$this->clientecontrasenna = $clientecontrasenna; 
+	}
+
+	function getclientedireccion() { 
+		return $this->clientedireccion; 
+	}
+	function setclientedireccion($clientedireccion) { 
+		$this->clientedireccion = $clientedireccion; 
 	}
     
     function getclienteestado() { 
