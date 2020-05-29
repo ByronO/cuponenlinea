@@ -12,9 +12,19 @@ class UsuarioControlador{
     
     public function Inicio()
     {
+        require rutaData.'usuarioData.php';
+        $usuarioData = new usuarioData();
+
+        $usuarioData->eliminarClienteSession($_SESSION['count']);
+
         unset($_SESSION['count']);
         unset($_SESSION['criterios']);
         unset($_SESSION['servicios']);
+        unset($_SESSION['promedio']);
+
+        
+
+
         $this->vista->mostrar('inicio.php', null);
         
     }
@@ -71,6 +81,15 @@ class UsuarioControlador{
                     $cuponData = new cuponData();
 
                     $data['cupones'] = $cuponData->obtenerTodosFiltrado();
+
+                    $_SESSION['promedio'] = $cuponData->obtenerPromedioPreciosCupon();
+
+                    //CREA LA SESSION DEL USUARIO EN LA TABLA
+                    $usuarioData->crearClienteSession($_SESSION['count']);
+
+                     /////////
+                    $data['datosS'] = $usuarioData->obtenerDatosSession();
+                    /////////
                     
                     $data['mensaje'] = '';
                     $this->vista->mostrar("clientevistaprincipal.php", $data);

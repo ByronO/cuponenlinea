@@ -48,6 +48,7 @@
                 <h3><?php echo $cupon->getcuponnombre()?> </h3>
                 <img src="<?php echo $cupon->getcuponrutaimagen() ?>" style="border-radius: 10px" width="150" height="150" >
                 <h3><?php echo $cupon->getcupondescripcion()?> </h3>
+                <h4><?php echo $cupon->getcupontipo()?> </h4>
                 <h4><?php echo $cupon->getcupondetallesadicionales()?> </h4>
                 
                 <h3>$<?php echo $cupon->getcuponprecio()?><span> / persona</span></h3>
@@ -63,3 +64,38 @@
         </div>
     </div>
 </section><!-- End Pricing Section -->
+
+<br><br><br>
+
+
+<div class = "row">
+    <div class= "col-sm-3"></div>
+    <div class= "col-sm-6">
+    <h2>Datos de sesion</h2>
+        <br>
+        <table style="width: 100%">
+            <thead>
+                <th>cliente id</th>
+                <th>Clicks mayor</th>
+                <th>Clicks menor</th>
+            </thead>
+            
+            <tbody id="filas" style="text-align: left">
+                
+                    <tr>                       
+                        <td> <?php echo $vars['datosS'][0]?> </td>
+                        <td> <?php echo $vars['datosS'][1]?> </td>
+                        <td> <?php echo $vars['datosS'][2]?> </td>
+                    </tr>
+      
+                
+            </tbody>
+            
+        </table>
+
+    </div>
+    <div class= "col-sm-3"></div>
+        <!-------------------------------------------------->
+
+</div>
+<br><br><br><br>
