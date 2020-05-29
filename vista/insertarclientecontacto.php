@@ -5,7 +5,7 @@
    
 ?>
     
-<a href="?controlador=Clientecontacto&accion=vistaprincipal"> Regresar </a>
+<a href="?controlador=Cliente&accion=inicio"> Regresar </a>
 <h1>Agregar Contacto</h1>
 
 <form method="post" enctype="multipart/form-data" action="?controlador=Clientecontacto&accion=insertar">

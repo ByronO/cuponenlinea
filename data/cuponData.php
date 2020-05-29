@@ -64,7 +64,64 @@ class cuponData extends Conexion {
     public function obtenerTodosFiltrado() {
         $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
         
+        //DISTRITO
         $idC = $_SESSION['count'];
+        $consulta = $mysql->prepare("select c.cuponid,c.cuponnombre, c.empresaid, c.serviciovalor, c.cuponrutaimagen, c.cupondescripcion,cupontipo, c.cupondetallesadicionales, c.cuponrestricciones, c.cuponprecio, c.cuponestado, c.cuponfechainicio, c.cuponfechafin from tbcupon c 
+                                        join tbperfilciente p on c.cupontipo = p.perfilclientecupontipo
+                                            join tbempresaturistica e on c.empresaid = e.empresaid
+                                                join tbcliente cl on cl.clienteid = p.perfilclienteidcliente
+                                                    where p.perfilclienteidcliente = '$idC' and cl.clientedireccion like concat('%', SUBSTRING_INDEX(e.empresaubicacion, ',', 3),'%')
+                                                        order by p.perfilclientecantidadclicks DESC;");
+        
+        $consulta->execute();
+        
+        $resultado = $consulta->get_result();
+        
+        $consulta->close();
+        
+        $cupones = [];
+
+        while ($fila = $resultado->fetch_array()) {
+            
+            //$valores = explode(",", $fila['serviciovalor']);
+            $valores =$fila['serviciovalor'];
+            $cupon = new cupon($fila['cuponid'], $fila['cuponnombre'], $fila['empresaid'],$valores, $fila['cuponrutaimagen'], $fila['cupondescripcion'],$fila['cupondetallesadicionales'], $fila['cuponrestricciones'], $fila['cuponprecio'],$fila['cuponestado'], $fila['cuponfechainicio'], $fila['cuponfechafin'], $fila['cupontipo']);
+        
+            array_push($cupones, $cupon);
+        }
+
+        //CANTON
+        $consulta = $mysql->prepare("select c.cuponid,c.cuponnombre, c.empresaid, c.serviciovalor, c.cuponrutaimagen, c.cupondescripcion,cupontipo, c.cupondetallesadicionales, c.cuponrestricciones, c.cuponprecio, c.cuponestado, c.cuponfechainicio, c.cuponfechafin from tbcupon c 
+                                        join tbperfilciente p on c.cupontipo = p.perfilclientecupontipo
+                                            join tbempresaturistica e on c.empresaid = e.empresaid
+                                                join tbcliente cl on cl.clienteid = p.perfilclienteidcliente
+                                                    where p.perfilclienteidcliente = '$idC' and cl.clientedireccion like concat('%', SUBSTRING_INDEX(e.empresaubicacion, ',', 1),'%') and cl.clientedireccion like concat('%', SUBSTRING_INDEX(e.empresaubicacion, ',', 2),'%')
+                                                        order by p.perfilclientecantidadclicks DESC;");
+        
+        $consulta->execute();
+        
+        $resultado = $consulta->get_result();
+        
+        $consulta->close();
+
+        while ($fila = $resultado->fetch_array()) {
+            $existe = 0;
+            foreach($cupones as $cupon){
+                if($cupon->getcuponid() == $fila['cuponid']){
+                    $existe = 1;
+                }
+            }
+
+            if($existe == 0){
+                //$valores = explode(",", $fila['serviciovalor']);
+                $valores =$fila['serviciovalor'];
+                $cupon = new cupon($fila['cuponid'], $fila['cuponnombre'], $fila['empresaid'],$valores, $fila['cuponrutaimagen'], $fila['cupondescripcion'],$fila['cupondetallesadicionales'], $fila['cuponrestricciones'], $fila['cuponprecio'],$fila['cuponestado'], $fila['cuponfechainicio'], $fila['cuponfechafin'], $fila['cupontipo']);
+            
+                array_push($cupones, $cupon);
+            }
+        }
+
+        //PROVINCIA
         $consulta = $mysql->prepare("select c.cuponid,c.cuponnombre, c.empresaid, c.serviciovalor, c.cuponrutaimagen, c.cupondescripcion,cupontipo, c.cupondetallesadicionales, c.cuponrestricciones, c.cuponprecio, c.cuponestado, c.cuponfechainicio, c.cuponfechafin from tbcupon c 
                                         join tbperfilciente p on c.cupontipo = p.perfilclientecupontipo
                                             join tbempresaturistica e on c.empresaid = e.empresaid
@@ -78,14 +135,20 @@ class cuponData extends Conexion {
         
         $consulta->close();
         
-        $cupones = [];
-
         while ($fila = $resultado->fetch_array()) {
-            //$valores = explode(",", $fila['serviciovalor']);
-            $valores =$fila['serviciovalor'];
-            $cupon = new cupon($fila['cuponid'], $fila['cuponnombre'], $fila['empresaid'],$valores, $fila['cuponrutaimagen'], $fila['cupondescripcion'],$fila['cupondetallesadicionales'], $fila['cuponrestricciones'], $fila['cuponprecio'],$fila['cuponestado'], $fila['cuponfechainicio'], $fila['cuponfechafin'], $fila['cupontipo']);
-        
-            array_push($cupones, $cupon);
+            $existe = 0;
+            foreach($cupones as $cupon){
+                if($cupon->getcuponid() == $fila['cuponid']){
+                    $existe = 1;
+                }
+            }
+
+            if($existe == 0){
+                $valores =$fila['serviciovalor'];
+                $cupon = new cupon($fila['cuponid'], $fila['cuponnombre'], $fila['empresaid'],$valores, $fila['cuponrutaimagen'], $fila['cupondescripcion'],$fila['cupondetallesadicionales'], $fila['cuponrestricciones'], $fila['cuponprecio'],$fila['cuponestado'], $fila['cuponfechainicio'], $fila['cuponfechafin'], $fila['cupontipo']);
+            
+                array_push($cupones, $cupon);
+            }
         }
 
         $consulta = $mysql->prepare("select c.cuponid,c.cuponnombre, c.empresaid, c.serviciovalor, c.cuponrutaimagen, c.cupondescripcion,cupontipo, c.cupondetallesadicionales, c.cuponrestricciones, c.cuponprecio, c.cuponestado, c.cuponfechainicio, c.cuponfechafin from tbcupon c 
@@ -100,13 +163,22 @@ class cuponData extends Conexion {
         $resultado = $consulta->get_result();
         
         $consulta->close();
-
-        while ($fila = $resultado->fetch_array()) {
-            //$valores = explode(",", $fila['serviciovalor']);
-            $valores =$fila['serviciovalor'];
-            $cupon = new cupon($fila['cuponid'], $fila['cuponnombre'], $fila['empresaid'],$valores, $fila['cuponrutaimagen'], $fila['cupondescripcion'],$fila['cupondetallesadicionales'], $fila['cuponrestricciones'], $fila['cuponprecio'],$fila['cuponestado'], $fila['cuponfechainicio'], $fila['cuponfechafin'], $fila['cupontipo']);
         
-            array_push($cupones, $cupon);
+        while ($fila = $resultado->fetch_array()) {
+            $existe = 0;
+            foreach($cupones as $cupon){
+                if($cupon->getcuponid() == $fila['cuponid']){
+                    $existe = 1;
+                }
+            }
+
+            if($existe == 0){
+                //$valores = explode(",", $fila['serviciovalor']);
+                $valores =$fila['serviciovalor'];
+                $cupon = new cupon($fila['cuponid'], $fila['cuponnombre'], $fila['empresaid'],$valores, $fila['cuponrutaimagen'], $fila['cupondescripcion'],$fila['cupondetallesadicionales'], $fila['cuponrestricciones'], $fila['cuponprecio'],$fila['cuponestado'], $fila['cuponfechainicio'], $fila['cuponfechafin'], $fila['cupontipo']);
+            
+                array_push($cupones, $cupon);
+            }
         }
 
         $consulta = $mysql->prepare("SELECT cuponid, cuponnombre, empresaid, serviciovalor, cuponrutaimagen, cupondescripcion,cupontipo, cupondetallesadicionales, cuponrestricciones, cuponprecio, cuponestado, cuponfechainicio, cuponfechafin FROM " . TBL_CUPON);
@@ -136,7 +208,66 @@ class cuponData extends Conexion {
 
       return $cupones;
          
-    } // obtenerTodos    
+    } // obtenerTodos 
+
+
+    public function obtenerTodosFiltradoSession() {
+        $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
+
+        $consulta = $mysql->prepare("SELECT clienteid, clicksmayor, clicksmenor from tbclientesession");
+      
+        $consulta->execute();
+        $resultado = $consulta->get_result();
+        $consulta->close();
+        
+        $fila = $resultado->fetch_array();
+        if($fila['clicksmayor'] > $fila['clicksmenor']){
+            
+            $consulta = $mysql->prepare("SELECT cuponid, cuponnombre, empresaid, serviciovalor, cuponrutaimagen, cupondescripcion,cupontipo, cupondetallesadicionales, cuponrestricciones, cuponprecio, cuponestado, cuponfechainicio, cuponfechafin FROM " . TBL_CUPON . " ORDER BY cuponprecio DESC;");
+        
+            $consulta->execute();            
+            $resultado = $consulta->get_result();            
+            $consulta->close();
+
+        }else{
+            $consulta = $mysql->prepare("SELECT cuponid, cuponnombre, empresaid, serviciovalor, cuponrutaimagen, cupondescripcion,cupontipo, cupondetallesadicionales, cuponrestricciones, cuponprecio, cuponestado, cuponfechainicio, cuponfechafin FROM " . TBL_CUPON. " ORDER BY cuponprecio ASC;");
+        
+            $consulta->execute();            
+            $resultado = $consulta->get_result();            
+            $consulta->close();
+
+        }
+        
+        $cupones = [];
+
+        while ($fila = $resultado->fetch_array()) {
+            //$valores = explode(",", $fila['serviciovalor']);
+            $valores =$fila['serviciovalor'];
+            $cupon = new cupon($fila['cuponid'], $fila['cuponnombre'], $fila['empresaid'],$valores, $fila['cuponrutaimagen'], $fila['cupondescripcion'],$fila['cupondetallesadicionales'], $fila['cuponrestricciones'], $fila['cuponprecio'],$fila['cuponestado'], $fila['cuponfechainicio'], $fila['cuponfechafin'], $fila['cupontipo']);
+        
+            array_push($cupones, $cupon);
+        }
+      return $cupones;
+         
+    } // obtenerTodos
+
+    public function obtenerPromedioPreciosCupon() {
+        $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
+        
+        $consulta = $mysql->prepare("SELECT (sum(cuponprecio)/count(cuponid)) as promedio from tbcupon");
+        
+        $consulta->execute();
+        
+        $resultado = $consulta->get_result();
+        
+        $consulta->close();
+        
+        if($fila = $resultado->fetch_assoc()) {
+            $data = $fila['promedio'];
+        }
+        return $data;
+         
+    }      
 
     public function obtenerCupon($id) {
         $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);

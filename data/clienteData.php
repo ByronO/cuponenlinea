@@ -68,7 +68,7 @@ class clienteData extends Conexion {
 
         $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
         
-        $consulta = $mysql->prepare("SELECT clienteid,clientecorreo FROM " . TBL_CLIENTE . " WHERE clienteestado=1 and clienteid!=".$_SESSION['count'].";");
+        $consulta = $mysql->prepare("SELECT clienteid,clientecorreo FROM " . TBL_CLIENTE . " WHERE clienteestado=1 and clienteid != ".$_SESSION['count'].";");
         
         $consulta->execute();
         
@@ -78,7 +78,7 @@ class clienteData extends Conexion {
         
         $clientes = [];
         while ($fila = $resultado->fetch_array()) {
-            $cliente = new cliente($fila['clienteid'],$fila['clientecorreo'],1,1,1,1);
+            $cliente = new cliente($fila['clienteid'],$fila['clientecorreo'],1,'',1,1,1);
   
             array_push($clientes, $cliente);
         }
@@ -135,7 +135,6 @@ class clienteData extends Conexion {
         
             $consulta->close();
 
-            return 'nada';
 
         }else{
 
@@ -154,9 +153,28 @@ class clienteData extends Conexion {
         
             $consulta->close();
 
-            return 'no quiere';
         }
+    }
 
+    public function cantidadClicksSession($tipo, $idCliente){
+        $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
+
+        if($tipo == 1){
+            $consulta = $mysql->prepare("update tbclientesession set clicksmayor = clicksmayor+1 where clienteid = '$idCliente';");
+        
+            $consulta->execute();
+        
+            $consulta->close();
+
+
+        }else{
+            $consulta = $mysql->prepare("update tbclientesession set clicksmenor = clicksmenor+1 where clienteid = '$idCliente';");
+        
+            $consulta->execute();
+        
+            $consulta->close();
+
+        }
     }
   
 }

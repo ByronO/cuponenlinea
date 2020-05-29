@@ -74,7 +74,48 @@ class usuarioData extends Conexion {
        
   } // obtenerTodos
     
-    
+    public function crearClienteSession($idCliente){
+      $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
+
+      $consulta = $mysql->prepare("insert into tbclientesession (clienteid, clicksmayor, clicksmenor) values ('$idCliente','0','0');");
+        
+      $consulta->execute();
+  
+      $consulta->close();
+
+    }
+
+    public function eliminarClienteSession($idCliente){
+      $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
+
+      $consulta = $mysql->prepare("delete from tbclientesession where clienteid = '$idCliente';");
+        
+      $consulta->execute();
+  
+      $consulta->close();
+
+    }
+
+    public function obtenerDatosSession(){
+      $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
+      
+      $consulta = $mysql->prepare("SELECT clienteid, clicksmayor, clicksmenor from tbclientesession");
+      
+      $consulta->execute();
+      
+      $resultado = $consulta->get_result();
+      
+      $consulta->close();
+      
+      $datos = [];
+      $fila = $resultado->fetch_array();
+      array_push($datos, $fila['clienteid']);
+      array_push($datos, $fila['clicksmayor']);
+      array_push($datos, $fila['clicksmenor']);
+      return $datos;
+
+
+    }
     
 }
 ?>

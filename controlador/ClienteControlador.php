@@ -98,7 +98,22 @@ class ClienteControlador{
         require rutaData.'cuponData.php';
         $cuponData = new cuponData();
 
-        $data['cupones'] = $cuponData->obtenerTodosFiltrado();
+        require rutaData.'usuarioData.php';
+        $usuarioData = new usuarioData();
+
+        /////////
+        $data['datosS'] = $usuarioData->obtenerDatosSession();
+        /////////
+
+        if($data['datosS'][1] == $data['datosS'][2]){
+            $data['cupones'] = $cuponData->obtenerTodosFiltrado();              
+
+        }else{
+            $data['cupones'] = $cuponData->obtenerTodosFiltradoSession();
+        }
+        
+
+
         unset($_SESSION['ubicacioncompletaC']);
         $this->vista->mostrar("clientevistaprincipal.php", $data);
         
@@ -133,6 +148,18 @@ class ClienteControlador{
         $id = $_GET['id'];
 
         $data['cupon'] = $cuponData->obtenerDetallesCupon($id)[0];
+
+        $_SESSION['tipoPreferido'] = $data['cupon']->getcupontipo();
+
+        if($data['cupon']->getcuponprecio() >= $_SESSION['promedio']){
+            //aumenta la cantidad de clicks en precios mayores al promedio
+            $clienteData->cantidadClicksSession(1, $_SESSION['count']);
+
+        }else{
+            //aumenta la cantidad de clicks en precios menores al promedio
+            $clienteData->cantidadClicksSession(2, $_SESSION['count']);
+
+        }
 
         $data['empresa'] = $cuponData->obtenerDetallesCupon($id)[1];
 

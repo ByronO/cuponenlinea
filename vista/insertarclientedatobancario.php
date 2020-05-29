@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<a href="?controlador=Datobancario&accion=vistaprincipal"> Regresar </a>
+<a href="?controlador=Cliente&accion=inicio"> Regresar </a>
 <h1>Agregar Datos Dancarios</h1>
 <?php
     $title = 'Agregar Datos Bancarios';
