@@ -15,7 +15,9 @@ class UsuarioControlador{
         require rutaData.'usuarioData.php';
         $usuarioData = new usuarioData();
 
-        $usuarioData->eliminarClienteSession($_SESSION['count']);
+        if (isset($_SESSION['count'])){
+            $usuarioData->eliminarClienteSession($_SESSION['count']);
+        }
 
         unset($_SESSION['count']);
         unset($_SESSION['criterios']);

@@ -165,8 +165,18 @@ class CuponControlador{
         }
     }
 
-
+    public function establecerPrioridad(){
+        require rutaData.'cuponData.php';
+        $cuponData = new cuponData();
+        
+        $prioridad = $_POST['prioridad'];
+        $cuponData->establecerPrioridad($prioridad);
+            
+        $mensaje = 'Prioridad cambiada correctamente';           
+        
+        echo $mensaje;
+    } // delete
     
-} // OrderController
+} // 
 
 ?>
