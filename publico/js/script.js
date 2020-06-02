@@ -122,6 +122,26 @@ function agregarServicioCupon(servicio) {
 }
 
 
+function establecerPrioridad(prioridad){
+    var parametros = {
+        "prioridad": prioridad
+    };
+    $.ajax(
+        {
+            data: parametros,
+            url: '?controlador=Cupon&accion=establecerPrioridad',
+            type: 'post',
+            beforeSend: function () {
+                $("#mensaje").html("Procesando, \n\ espere por favor...");
+            },
+            success: function (response) {
+                $("#mensaje").html(response);
+            }
+        }
+    );
+}
+
+
 var array = new Array();
 var arrayC = new Array();
 var arrayD = new Array();

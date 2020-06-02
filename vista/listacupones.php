@@ -7,7 +7,20 @@
 
 <div class = "row">
     <div class= "col-sm-6">
-    <h2>Lista de cupones</h2>
+        <div class="row">
+            <h2>Orioridad al mostrar al cliente</h2>
+            <div class="col-sm-3">
+                <select class="form-control" style="width: 200px" name="prioridad" id="prioridad">
+                    <option value="1">Cupones más cercanos</option>
+                    <option value="2">Cupones más buscados</option>
+                </select>
+            </div>            
+            <div class="col-sm-6">
+                <input type="button" class="btn btn-success" onclick="establecerPrioridad($('#prioridad').val());return false;" value="Establecer"/>
+            </div>
+        </div>
+        <br><p style="color: green" id="mensaje"></p>
+        <h2>Lista de cupones</h2>
         <br><br>
         <table style="width: 100%">
             <thead>
