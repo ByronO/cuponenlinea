@@ -17,6 +17,7 @@ define("TBL_SERVICIOIMAGEN",  "tbservicioimagen");
 define("TBL_CUPON",  "tbcupon");
 define("TBL_CUPONRECOMENDAR",  "tbclienterecomendarcupon");
 define("TBL_PERFIL",  "tbperfilcliente");
+define("TBL_COMPRA",  "tbclientecompracupon");
 
 define("rutaControlador",  "controlador/");
 define("rutaData",  "data/");

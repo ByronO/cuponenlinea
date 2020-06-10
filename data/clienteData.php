@@ -34,6 +34,7 @@ class clienteData extends Conexion {
         return $resultado;
          
     } // insertar
+    
 
     public function insertarclienterecomendarcupon(clienterecomendarcupon $clienterecomendarcupon) {
         $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
@@ -112,6 +113,8 @@ class clienteData extends Conexion {
       return $clienterecomendarcupones;
          
     } // obtenerTodos
+
+   
 
     public function cantidadClicks($idCliente,$tipo){
         $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);

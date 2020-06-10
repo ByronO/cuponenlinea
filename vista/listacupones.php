@@ -8,7 +8,7 @@
 <div class = "row">
     <div class= "col-sm-6">
         <div class="row">
-            <h2>Orioridad al mostrar al cliente</h2>
+            <h2>Prioridad al mostrar al cliente</h2>
             <div class="col-sm-3">
                 <select class="form-control" style="width: 200px" name="prioridad" id="prioridad">
                     <option value="1">Cupones más cercanos</option>

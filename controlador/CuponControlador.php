@@ -123,6 +123,47 @@ class CuponControlador{
         }   
     } // insert
         
+    public function vistacomprascliente(){
+        require rutaData.'cuponData.php';
+        $clienteData = new cuponData();
+        $data['mensaje'] = '';
+        $data['compras'] = $clienteData->obtenerComprasId($_SESSION['count']);
+        $this->vista->mostrar("mostrarcomprascliente.php", $data);
+    }
+
+    public function insertarcompracupon(){
+        require rutaData.'cuponData.php';
+        $cuponData = new cuponData();
+
+        require rutaData.'UsuarioData.php';
+        $usuarioData = new usuarioData();
+
+        if(isset($_POST['create'])){
+            if(isset($_POST['idcuponcompra'])){
+  
+
+    $compra = new compra(0,$_SESSION['count'], $_POST['idcuponcompra'],0);
+               
+     if($cuponData->insertarcompracupon($compra)){
+      $data['mensaje'] = 'ingresado correctamente';
+    }else $data['mensaje'] = 'Error al insertar';
+
+      
+            }else $data = null;
+        }else $data = null;
+
+        $data['cupones'] = $cuponData->obtenerTodosFiltrado();
+
+        $_SESSION['promedio'] = $cuponData->obtenerPromedioPreciosCupon();
+
+         /////////
+        $data['datosS'] = $usuarioData->obtenerDatosSession();
+        /////////
+        
+        $data['mensaje'] = '';
+        $this->vista->mostrar("clientevistaprincipal.php", $data);
+    } // insert
+
 
     public function borrar(){
         require rutaData.'cuponData.php';

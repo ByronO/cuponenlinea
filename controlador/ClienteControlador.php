@@ -23,13 +23,13 @@ class ClienteControlador{
     }
 
     public function vistadatobanco(){
-
         require rutaData.'datobancarioData.php';
         $datobancarioData = new datobancarioData();
         $data['mensaje'] = '';
         $data['cuentas'] = $datobancarioData->obtenerCuentasId($_SESSION['count']);
         $this->vista->mostrar("insertarclientedatobancario.php", $data);
     }
+
 
     public function vistarecomendarclientecupon(){
         require_once rutaData.'cuponData.php';
