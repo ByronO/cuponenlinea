@@ -34,6 +34,7 @@
 ?>
 <center>
 <h2><?php echo $cupon->getcuponnombre()?></h2>
+
 <br><br>
 </center>
 
@@ -78,7 +79,7 @@
                             
                             <h3>Lo que necesitas saber: </h3>
                             <h4>Periodo para usar tu cupón:</h4>
-                            <h4>Del <?php echo $cupon->getcuponfechainicio()?> al <?php echo $cupon->getcuponfechafin()?></h4>
+                             <h4>Del <?php echo $cupon->getcuponfechainicio()?> al <?php echo $cupon->getcuponfechafin()?></h4>
 
                             <br>
                             <h4>Empresa: <?php echo $empresa->getempresanombre()?></h4>
@@ -120,7 +121,10 @@
                                 $cont ++;
                             } ?>
 
-                            <a href="" class="btn-success form-control" style="width = 40%; margin-top: 15px; text-align:center">Comprar Ahora!</a>
+                            <form method="post" enctype="multipart/form-data" action="?controlador=Cupon&accion=insertarcompracupon">
+                            <input required type="text" name="idcuponcompra" id="idcuponcompra" style="display: none" value="<?php echo $cupon->getcuponid()?>"/>
+                            <input class="btn-success form-control" style="width = 40%; margin-top: 15px; text-align:center" type="submit" value="Comprar Ahora!" name="create" id="create"/>
+                            </form>
                             
                             <br><br><br><br>
                         </div>

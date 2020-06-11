@@ -4,6 +4,7 @@ include_once("libs/Constantes.php");
 include_once 'libs/Conexion.php';
 include_once 'libs/Carpetas.php';
 include 'domain/cupon.php';
+include 'domain/compra.php';
 
 
 class cuponData extends Conexion {
@@ -19,6 +20,25 @@ class cuponData extends Conexion {
         }
         return $id;
     }
+
+    public function obtenerComprasId($id) {
+        $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
+        
+        $consulta = $mysql->prepare("SELECT clientecompracuponid,clienteid,cuponid,fechaclientecompracupon FROM  " . TBL_COMPRA . " WHERE clienteid=?");
+        $consulta->bind_param("i", $id);
+        
+        $consulta->execute();
+        
+        $resultado = $consulta->get_result();
+        
+       $compras = [];
+        while ($fila = $resultado->fetch_array()) {
+        $compra = new compra($fila['clientecompracuponid'],$fila['clienteid'],$fila['cuponid'],$fila['fechaclientecompracupon']);
+        array_push($compras, $compra);
+    }
+  return $compras;
+
+    } // obtenerOrdenId
     
     public function insertarCupon($cuponid, $cuponnombre, $empresaid, $serviciovalor,$cuponrutaimagen, $cupondescripcion, $cupondetallesadicionales,$cupontipo,$cuponrestricciones,$cuponprecio, $cuponestado, $cuponfechainicio, $cuponfechafin) {
         $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
@@ -27,6 +47,32 @@ class cuponData extends Conexion {
         $mysql->prepare
         ("INSERT INTO ". TBL_CUPON ."(cuponid, cuponnombre, empresaid, serviciovalor, cuponrutaimagen, cupondescripcion, cupondetallesadicionales, cupontipo, cuponrestricciones, cuponprecio, cuponestado, cuponfechainicio, cuponfechafin) 
                             VALUES('$cuponid','$cuponnombre','$empresaid','$serviciovalor','$cuponrutaimagen','$cupondescripcion','$cupondetallesadicionales','$cupontipo','$cuponrestricciones','$cuponprecio','$cuponestado','$cuponfechainicio','$cuponfechafin');");
+
+        $resultado = $consulta->execute();
+        
+        $consulta->close();
+   
+        return $resultado;
+         
+    } // insertar
+
+    public function insertarcompracupon(compra $compra) {
+        $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
+        
+        $ultimoId = $mysql->prepare("SELECT MAX(clientecompracuponid) AS id FROM " . TBL_COMPRA);
+        $ultimoId->execute();
+        $id = 1;
+        if ($fila = $ultimoId->get_result()->fetch_row()) {
+            $id = trim($fila[0]) + 1;
+        }
+    
+        $cliente = $compra->getclienteid();
+        $cupon = $compra->getcuponid();
+
+        $consulta = 
+        $mysql->prepare
+        ("INSERT INTO ". TBL_COMPRA ."(clientecompracuponid,clienteid,cuponid,fechaclientecompracupon)
+        VALUES('$id','$cliente','$cupon',NOW());");
 
         $resultado = $consulta->execute();
         
