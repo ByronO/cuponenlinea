@@ -140,19 +140,13 @@ class CuponControlador{
 
         if(isset($_POST['create'])){
             if(isset($_POST['idcuponcompra'])){
-  
-
-    $compra = new compra(0,$_SESSION['count'], $_POST['idcuponcompra'],0);
-               
-     if($cuponData->insertarcompracupon($compra)){
-      $data['mensaje'] = 'ingresado correctamente';
-    }else $data['mensaje'] = 'Error al insertar';
-
-      
+                $compra = new compra(0,$_SESSION['count'], $_POST['idcuponcompra'],0);
+                    
+                if($cuponData->insertarcompracupon($compra)){
+                $data['mensaje'] = 'ingresado correctamente';
+                }else $data['mensaje'] = 'Error al insertar';      
             }else $data = null;
         }else $data = null;
-
-        $data['cupones'] = $cuponData->obtenerTodosFiltrado();
 
         $_SESSION['promedio'] = $cuponData->obtenerPromedioPreciosCupon();
 
@@ -160,8 +154,18 @@ class CuponControlador{
         $data['datosS'] = $usuarioData->obtenerDatosSession();
         /////////
         
-        $data['mensaje'] = '';
+        if($data['datosS'][1] == $data['datosS'][2]){
+            $data['cupones'] = $cuponData->obtenerTodosFiltrado();              
+
+        }else{
+            $data['cupones'] = $cuponData->obtenerTodosFiltradoSession();
+        }
+
+        $data['cuponesRecomendados'] = $cuponData->obtenerCuponesRecomendados();  
+
+        echo "<script>alert('Compra realizada con exito!')</script>";
         $this->vista->mostrar("clientevistaprincipal.php", $data);
+        
     } // insert
 
 

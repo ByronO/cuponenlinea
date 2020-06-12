@@ -92,6 +92,8 @@ class UsuarioControlador{
                      /////////
                     $data['datosS'] = $usuarioData->obtenerDatosSession();
                     /////////
+
+                    $data['cuponesRecomendados'] = $cuponData->obtenerCuponesRecomendados();  
                     
                     $data['mensaje'] = '';
                     $this->vista->mostrar("clientevistaprincipal.php", $data);

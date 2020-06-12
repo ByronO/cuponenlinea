@@ -111,7 +111,8 @@ class ClienteControlador{
         }else{
             $data['cupones'] = $cuponData->obtenerTodosFiltradoSession();
         }
-        
+
+        $data['cuponesRecomendados'] = $cuponData->obtenerCuponesRecomendados();        
 
 
         unset($_SESSION['ubicacioncompletaC']);

@@ -124,6 +124,68 @@ class cuponData extends Conexion {
          
     } // obtenerTodos
 
+    public function obtenerCuponesRecomendados() {
+        $id = $_SESSION['count'];
+
+        $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
+        
+        $consulta = $mysql->prepare("select c.cupontipo  from tbclientecompracupon tc 
+                                        JOIN tbcupon c ON tc.cuponid = c.cuponid
+                                    WHERE tc.fechaclientecompracupon between DATE_SUB(NOW(),INTERVAL 1 MONTH) AND NOW() and clienteid = '$id'
+                                    GROUP BY c.cupontipo ORDER BY count(c.cupontipo) desc limit 2;");
+        
+        $consulta->execute();
+        
+        $resultado = $consulta->get_result();
+        
+        $consulta->close();
+
+        $tipos = [];
+        
+        while ($fila = $resultado->fetch_array()) {    
+            array_push($tipos, $fila['cupontipo']);
+        }
+
+        $consulta = $mysql->prepare("select c.cuponid,c.cuponnombre, c.empresaid, c.serviciovalor, c.cuponrutaimagen, c.cupondescripcion,cupontipo, c.cupondetallesadicionales, c.cuponrestricciones, c.cuponprecio, c.cuponestado, c.cuponfechainicio, c.cuponfechafin from tbcupon c 
+                                        WHERE c.cupontipo = '$tipos[0]' limit 2");
+        
+        $consulta->execute();
+        
+        $resultado = $consulta->get_result();
+        
+        $consulta->close();
+        
+        $cupones = [];
+
+        while ($fila = $resultado->fetch_array()) {
+            //$valores = explode(",", $fila['serviciovalor']);
+            $valores =$fila['serviciovalor'];
+            $cupon = new cupon($fila['cuponid'], $fila['cuponnombre'], $fila['empresaid'],$valores, $fila['cuponrutaimagen'], $fila['cupondescripcion'],$fila['cupondetallesadicionales'], $fila['cuponrestricciones'], $fila['cuponprecio'],$fila['cuponestado'], $fila['cuponfechainicio'], $fila['cuponfechafin'], $fila['cupontipo']);
+        
+            array_push($cupones, $cupon);
+        }
+
+        $consulta = $mysql->prepare("select c.cuponid,c.cuponnombre, c.empresaid, c.serviciovalor, c.cuponrutaimagen, c.cupondescripcion,cupontipo, c.cupondetallesadicionales, c.cuponrestricciones, c.cuponprecio, c.cuponestado, c.cuponfechainicio, c.cuponfechafin from tbcupon c 
+                                        WHERE c.cupontipo = '$tipos[1]' limit 2");
+        
+        $consulta->execute();
+        
+        $resultado = $consulta->get_result();
+        
+        $consulta->close();
+
+        while ($fila = $resultado->fetch_array()) {
+            //$valores = explode(",", $fila['serviciovalor']);
+            $valores =$fila['serviciovalor'];
+            $cupon = new cupon($fila['cuponid'], $fila['cuponnombre'], $fila['empresaid'],$valores, $fila['cuponrutaimagen'], $fila['cupondescripcion'],$fila['cupondetallesadicionales'], $fila['cuponrestricciones'], $fila['cuponprecio'],$fila['cuponestado'], $fila['cuponfechainicio'], $fila['cuponfechafin'], $fila['cupontipo']);
+        
+            array_push($cupones, $cupon);
+        }
+
+      return $cupones;
+         
+    } // obtenerTodos
+
     public function obtenerTodosFiltrado() {
         $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
         $consulta = $mysql->prepare("select prioridadubicacion, prioridadclicks from tbcriterioprioridad where id=1");
@@ -443,7 +505,8 @@ class cuponData extends Conexion {
     public function obtenerTodosFiltradoSession() {
         $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
 
-        $consulta = $mysql->prepare("SELECT clienteid, clicksmayor, clicksmenor from tbclientesession");
+        $id = $_SESSION["count"];
+        $consulta = $mysql->prepare("SELECT clienteid, clicksmayor, clicksmenor from tbclientesession where clienteid='$id'");
       
         $consulta->execute();
         $resultado = $consulta->get_result();
