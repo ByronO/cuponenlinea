@@ -99,7 +99,8 @@ class usuarioData extends Conexion {
     public function obtenerDatosSession(){
       $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
       
-      $consulta = $mysql->prepare("SELECT clienteid, clicksmayor, clicksmenor from tbclientesession");
+      $id = $_SESSION["count"];
+      $consulta = $mysql->prepare("SELECT clienteid, clicksmayor, clicksmenor from tbclientesession where clienteid='$id'");
       
       $consulta->execute();
       

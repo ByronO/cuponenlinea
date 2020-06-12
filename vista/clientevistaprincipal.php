@@ -32,6 +32,8 @@
 <a href="?controlador=Cliente&accion=vistarecomendarclientecupon"> Recomendar Cupones </a>
 <a href="?controlador=Usuario&accion=Inicio"> Cerrar Sesión </a>
 
+
+<!-- CUPONES -->
 <center>
 <h2>Lista de cupones</h2>
 </center>
@@ -65,6 +67,44 @@
         </div>
     </div>
 </section><!-- End Pricing Section -->
+
+
+<!-- RECOMENDADOS -->
+<br><br><br>
+<center>
+<h2>Cupones recomendados para ti!</h2>
+</center>
+
+<section id="pricing" class="pricing">
+    <div class="container">
+
+        <div class="row">
+            <?php 
+            foreach($vars['cuponesRecomendados'] as $cupon){ 
+                ?>
+
+          <div class="col-lg-3 col-md-6" style="text-align: center; display: inline-block">
+            <div class="box" data-aos="fade-right">
+                <h3><?php echo $cupon->getcuponnombre()?> </h3>
+                <img src="<?php echo $cupon->getcuponrutaimagen() ?>" style="border-radius: 10px" width="150" height="150" >
+                <h3><?php echo $cupon->getcupondescripcion()?> </h3>
+                <h4><?php echo $cupon->getcupontipo()?> </h4>
+                <h4><?php echo $cupon->getcupondetallesadicionales()?> </h4>
+                
+                <h3>$<?php echo $cupon->getcuponprecio()?><span> / persona</span></h3>
+                
+                <br>
+                <div class="btn-wrap">
+                <a href="?controlador=Cliente&accion=verDetallesCupon&id=<?php echo  $cupon->getcuponid(); ?>" class="btn-success form-control" style="width = 50%;">Comprar Ahora!</a>
+                </div>
+            </div>
+          </div>
+            <?php  } ?>
+            
+        </div>
+    </div>
+</section>
+
 
 <br><br><br>
 
