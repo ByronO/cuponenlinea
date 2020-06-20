@@ -10,6 +10,7 @@
     <thead>
     <th>Compra</th>
     <th>Cupón</th>
+    <th>Cantidad</th>
     <th>Fecha Compra</th>
     </thead>
     
@@ -19,6 +20,7 @@
             <tr>
                 <td><?php echo $value->getclientecompracuponid()?></td>
                 <td> <?php echo $value->getcuponid()?> </td>
+                <td> <?php echo $value->getcantidadcupones()?> </td>
                 <td> <?php echo $value->getfechaclientecompracupon()?> </td>
             </tr>
 <?php   }

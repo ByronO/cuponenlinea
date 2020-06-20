@@ -94,6 +94,10 @@ class UsuarioControlador{
                     /////////
 
                     $data['cuponesRecomendados'] = $cuponData->obtenerCuponesRecomendados();  
+
+                    $data['rankeomasvendidoshoy'] = $cuponData->Rankeomasvendidoshoy();    
+
+                    $data['rankeomasvendidossemana'] = $cuponData->Rankeomasvendidossemana();
                     
                     $data['mensaje'] = '';
                     $this->vista->mostrar("clientevistaprincipal.php", $data);

@@ -14,6 +14,10 @@
         <script type="text/javascript" src="publico/js/jquery-3.3.1.js"></script>
         <script type="text/javascript" src="publico/js/script.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery.js"></script>
+            <!-- Importo el archivo Javascript de Highcharts directamente desde su servidor -->
+        <script src="http://code.highcharts.com/stock/highstock.js"></script>
+        <script src="http://code.highcharts.com/modules/exporting.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
             <?php if(isset($title)){ ?>
@@ -135,38 +139,155 @@
         </table>
 
     </div>
-    <div class= "col-sm-3">
-    <canvas id="myChart" width="40" height="40"></canvas>
-    </div>
+    
         <!-------------------------------------------------->
 
 </div>
-<br><br><br><br>
+<br><br><br>
 
-    <script>
-        var ctx= document.getElementById("myChart").getContext("2d");
-        var myChart= new Chart(ctx,{
-            type:"pie",
-            data:{
-                labels:['col1','col2','col3'],
-                datasets:[{
-                        label:'Num datos',
-                        data:[1,1,1],
-                        backgroundColor:[
-                            'rgb(89, 134, 244,0.5)',
-                            'rgb(74, 1, 72,0.5)',
-                            'rgb(229, 89, 50,0.5)'
-                        ]
-                }]
-            },
-            options:{
-                scales:{
-                    yAxes:[{
-                            ticks:{
-                                beginAtZero:true
-                            }
-                    }]
-                }
+<div class="row">
+
+<div class="col-sm-6" id="container2">
+</div>
+
+
+<div class="col-sm-6" id="container">
+</div>
+</div>
+
+<script type='text/javascript'>
+$(function () {
+    $(document).ready(function() {
+        Highcharts.setOptions({
+            global: {
+                useUTC: false
             }
         });
-    </script>
+    
+        var chart;
+        $('#container').highcharts({
+            chart: {
+                type: 'bar',
+                animation: Highcharts.svg, // don't animate in old IE
+                marginRight: 10,
+                events: {
+                    load: function() {
+                        
+                    }
+                }
+            },
+            title: {
+                text: 'Los cupones más vendidos en la semana'
+            },
+            xAxis: {
+                type: 'category',
+                tickPixelInterval: 150
+            },
+            yAxis: {
+                title: {
+                    text: 'Value'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                formatter: function() {
+                        return '<b>'+ this.series.name +'</b><br/>'+
+                        Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', Date.now()) +'<br/>'+
+                        Highcharts.numberFormat(this.y, 2);
+                }
+            },
+            legend: {
+                enabled: true
+            },
+            exporting: {
+                enabled: true
+            },
+            series: [{
+                name: 'Ranking por Costo',
+                data: (function() {
+                   var data = [];
+
+                   <?php foreach($vars['rankeomasvendidossemana'] as $key => $value){?>
+                    data.push(['<?php echo $value->getcuponnombre()?>',<?php echo $value->getcuponprecio()?>]);
+                    <?php 
+                     } ?>
+                                    return data;
+                })()
+            }]
+        });
+    });
+    
+});
+//]]>  
+
+$(function () {
+    $(document).ready(function() {
+        Highcharts.setOptions({
+            global: {
+                useUTC: false
+            }
+        });
+    
+        var chart;
+        $('#container2').highcharts({
+            chart: {
+                type: 'line',
+                animation: Highcharts.svg, // don't animate in old IE
+                marginRight: 10,
+                events: {
+                    load: function() {
+                        
+                    }
+                }
+            },
+            title: {
+                text: 'Cupones más vendidos Hoy'
+            },
+            xAxis: {
+                type: 'category',
+                tickPixelInterval: 150
+            },
+            yAxis: {
+                title: {
+                    text: 'Value'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                formatter: function() {
+                        return '<b>'+ this.series.name +'</b><br/>'+
+                        Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', Date.now()) +'<br/>'+
+                        Highcharts.numberFormat(this.y, 2);
+                }
+            },
+            legend: {
+                enabled: true
+            },
+            exporting: {
+                enabled: true
+            },
+            series: [{
+                name: 'Ranking por Costo',
+                data: (function() {
+                   var data = [];
+                   <?php foreach($vars['rankeomasvendidoshoy'] as $key => $value){?>
+                    data.push(['<?php echo $value->getcuponnombre()?>',<?php echo $value->getcuponprecio()?>]);
+                    <?php 
+                     } ?>
+                                    return data;
+                })()
+            }]
+        });
+    });
+    
+});
+</script>
+

@@ -122,6 +122,8 @@
                             } ?>
 
                             <form method="post" enctype="multipart/form-data" action="?controlador=Cupon&accion=insertarcompracupon">
+                            <label for="cantidadcupones">Cantidad a comprar: </label>
+                            <input required type="number" name="cantidadcupones" id="cantidadcupones" value="1"/>
                             <input required type="text" name="idcuponcompra" id="idcuponcompra" style="display: none" value="<?php echo $cupon->getcuponid()?>"/>
                             <input class="btn-success form-control" style="width = 40%; margin-top: 15px; text-align:center" type="submit" value="Comprar Ahora!" name="create" id="create"/>
                             </form>

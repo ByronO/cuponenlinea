@@ -4,14 +4,16 @@ class compra {
     private $clientecompracuponid;
     private $clienteid;
 	private $cuponid;
+	private $cantidadcupones;
 	private $fechaclientecompracupon;
 	
 
-	function compra($clientecompracuponid,$clienteid,$cuponid,$fechaclientecompracupon) {
+	function compra($clientecompracuponid,$clienteid,$cuponid,$cantidadcupones,$fechaclientecompracupon) {
 
         $this->clientecompracuponid = $clientecompracuponid;
         $this->clienteid = $clienteid;
-        $this->cuponid = $cuponid;
+		$this->cuponid = $cuponid;
+		$this->cantidadcupones = $cantidadcupones;
         $this->fechaclientecompracupon = $fechaclientecompracupon;
 		
     }
@@ -33,6 +35,13 @@ class compra {
 	}
 	function setcuponid($cuponid) { 
 		$this->cuponid = $cuponid; 
+	}
+	
+	function getcantidadcupones() { 
+		return $this->cantidadcupones; 
+	}
+	function setcantidadcupones($cantidadcupones) { 
+		$this->cantidadcupones = $cantidadcupones; 
     }
     function getfechaclientecompracupon() { 
 		return $this->fechaclientecompracupon; 

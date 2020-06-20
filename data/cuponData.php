@@ -24,7 +24,7 @@ class cuponData extends Conexion {
     public function obtenerComprasId($id) {
         $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
         
-        $consulta = $mysql->prepare("SELECT clientecompracuponid,clienteid,cuponid,fechaclientecompracupon FROM  " . TBL_COMPRA . " WHERE clienteid=?");
+        $consulta = $mysql->prepare("SELECT c.clientecompracuponid,c.clienteid,p.cuponnombre,c.cantidadcupones,c.fechaclientecompracupon FROM  " . TBL_COMPRA . " c JOIN tbcupon p ON p.cuponid = c.cuponid  WHERE clienteid=?");
         $consulta->bind_param("i", $id);
         
         $consulta->execute();
@@ -33,10 +33,10 @@ class cuponData extends Conexion {
         
        $compras = [];
         while ($fila = $resultado->fetch_array()) {
-        $compra = new compra($fila['clientecompracuponid'],$fila['clienteid'],$fila['cuponid'],$fila['fechaclientecompracupon']);
+        $compra = new compra($fila['clientecompracuponid'],$fila['clienteid'],$fila['cuponnombre'],$fila['cantidadcupones'] ,$fila['fechaclientecompracupon']);
         array_push($compras, $compra);
-    }
-  return $compras;
+        }
+    return $compras;
 
     } // obtenerOrdenId
     
@@ -68,11 +68,12 @@ class cuponData extends Conexion {
     
         $cliente = $compra->getclienteid();
         $cupon = $compra->getcuponid();
+        $cantidad = $compra->getcantidadcupones();
 
         $consulta = 
         $mysql->prepare
-        ("INSERT INTO ". TBL_COMPRA ."(clientecompracuponid,clienteid,cuponid,fechaclientecompracupon)
-        VALUES('$id','$cliente','$cupon',NOW());");
+        ("INSERT INTO ". TBL_COMPRA ."(clientecompracuponid,clienteid,cuponid,cantidadcupones,fechaclientecompracupon)
+        VALUES('$id','$cliente','$cupon','$cantidad',NOW());");
 
         $resultado = $consulta->execute();
         
@@ -644,6 +645,55 @@ class cuponData extends Conexion {
         return $resultado;
         
     } // borrar
+
+    public function Rankeomasvendidoshoy() {
+        $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
+        
+        $consulta = $mysql->prepare("SELECT distinct tbclientecompracupon.cuponid as id,tbcupon.cuponprecio as precio,tbcupon.cuponnombre as nombre
+        FROM tbclientecompracupon JOIN tbcupon ON tbclientecompracupon.cuponid=tbcupon.cuponid
+        where CAST(tbclientecompracupon.fechaclientecompracupon as Date)=DATE(NOW())");
+        
+        $consulta->execute();
+        
+        $resultado = $consulta->get_result();
+        
+        $consulta->close();
+        
+        $cupones = [];
+  
+        while ($fila = $resultado->fetch_array()) {
+            
+          $cupon = new cupon($fila['id'], $fila['nombre'], 1,1,1,1,1,1,$fila['precio'],1,1,1,1);
+        
+          array_push($cupones, $cupon);
+        }
+      return $cupones;
+         
+    } // obtenerTodos
+    public function Rankeomasvendidossemana() {
+      $mysql = new mysqli($this->servidor, $this->usuario, $this->contrasena, $this->db);
+      
+      $consulta = $mysql->prepare("SELECT distinct tbclientecompracupon.cuponid as id,tbcupon.cuponprecio as precio,tbcupon.cuponnombre as nombre
+      FROM tbclientecompracupon JOIN tbcupon ON tbclientecompracupon.cuponid=tbcupon.cuponid
+      where EXTRACT(week FROM tbclientecompracupon.fechaclientecompracupon)=week(CURDATE());");
+      
+      $consulta->execute();
+      
+      $resultado = $consulta->get_result();
+      
+      $consulta->close();
+      
+      $cupones = [];
+  
+      while ($fila = $resultado->fetch_array()) {
+          
+        $cupon = new cupon($fila['id'], $fila['nombre'], 1,1,1,1,1,1,$fila['precio'],1,1,1,1);
+      
+        array_push($cupones, $cupon);
+      }
+    return $cupones;
+       
+  } // obtenerTodos
     
 }
 ?>
