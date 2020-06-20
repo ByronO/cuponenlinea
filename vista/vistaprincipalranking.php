@@ -24,5 +24,8 @@
         <a href="?controlador=Reportes&accion=Rankeomasvendidosseguncosto"> Ranking cupones mas vendidos </a>
         <a href="?controlador=Reportes&accion=Rankeomasvendidoshoy"> Ranking cupones mas vendidos hoy </a>
         <a href="?controlador=Reportes&accion=Rankeomasvendidossemana"> Ranking cupones mas vendidos en la semana </a>
+        <a href="?controlador=Reportes&accion=Rankeomasvisitados"> Ranking categorias más visitados</a>
+
+        
        
         

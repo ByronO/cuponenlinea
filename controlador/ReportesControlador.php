@@ -57,6 +57,16 @@ class ReportesControlador{
        $this->vista->mostrar("mostrarRankeomasvendidossemana.php", $data);
 
     }//
+
+    public function Rankeomasvisitados(){
+        require rutaData.'reportesData.php';
+        $reportesData = new reportesData();
+
+        $data['rankeomasvisitados'] = $reportesData->Rankeomasvisitados();
+        
+        $this->vista->mostrar("mostrarRankeomasvisitados.php", $data);
+
+    }//
     
 } // OrderController
 

@@ -139,11 +139,11 @@ class CuponControlador{
         $usuarioData = new usuarioData();
 
         if(isset($_POST['create'])){
-            if(isset($_POST['idcuponcompra'])){
-                $compra = new compra(0,$_SESSION['count'], $_POST['idcuponcompra'],0);
+            if(isset($_POST['idcuponcompra']) && isset($_POST['cantidadcupones'])){
+                $compra = new compra(0,$_SESSION['count'], $_POST['idcuponcompra'],$_POST['cantidadcupones'],0);
                     
                 if($cuponData->insertarcompracupon($compra)){
-                $data['mensaje'] = 'ingresado correctamente';
+                    $data['mensaje'] = 'ingresado correctamente';
                 }else $data['mensaje'] = 'Error al insertar';      
             }else $data = null;
         }else $data = null;

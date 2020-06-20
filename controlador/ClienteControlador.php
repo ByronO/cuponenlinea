@@ -112,7 +112,11 @@ class ClienteControlador{
             $data['cupones'] = $cuponData->obtenerTodosFiltradoSession();
         }
 
-        $data['cuponesRecomendados'] = $cuponData->obtenerCuponesRecomendados();        
+        $data['cuponesRecomendados'] = $cuponData->obtenerCuponesRecomendados();    
+
+        $data['rankeomasvendidoshoy'] = $cuponData->Rankeomasvendidoshoy();    
+
+        $data['rankeomasvendidossemana'] = $cuponData->Rankeomasvendidossemana();       
 
 
         unset($_SESSION['ubicacioncompletaC']);
