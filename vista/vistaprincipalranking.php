@@ -19,12 +19,9 @@
             <?php } ?>
     </head>
     <body>
-        <a href="?controlador=Empresa&accion=insertar"> Empresa </a>
-        <a href="?controlador=Cupon&accion=verCupones"> Cupones </a>
-        <a href="?controlador=Reportes&accion=vistaprincipalRankeo"> Ranking </a>
-        <a href="?controlador=Usuario&accion=Inicio"> Cerrar Sesión </a>
+        <a href="?controlador=Reportes&accion=RankeoporCostoDescVista"> Ranking por costo </a>
+        <a href="?controlador=Reportes&accion=Rankeomasvendidosseguncosto"> Ranking cupones mas vendidos </a>
+        <a href="?controlador=Reportes&accion=Rankeomasvendidoshoy"> Ranking cupones mas vendidos hoy </a>
+        <a href="?controlador=Reportes&accion=Rankeomasvendidossemana"> Ranking cupones mas vendidos en la semana </a>
+       
         
-
-
-
-

@@ -6,7 +6,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
@@ -135,8 +135,38 @@
         </table>
 
     </div>
-    <div class= "col-sm-3"></div>
+    <div class= "col-sm-3">
+    <canvas id="myChart" width="40" height="40"></canvas>
+    </div>
         <!-------------------------------------------------->
 
 </div>
 <br><br><br><br>
+
+    <script>
+        var ctx= document.getElementById("myChart").getContext("2d");
+        var myChart= new Chart(ctx,{
+            type:"pie",
+            data:{
+                labels:['col1','col2','col3'],
+                datasets:[{
+                        label:'Num datos',
+                        data:[1,1,1],
+                        backgroundColor:[
+                            'rgb(89, 134, 244,0.5)',
+                            'rgb(74, 1, 72,0.5)',
+                            'rgb(229, 89, 50,0.5)'
+                        ]
+                }]
+            },
+            options:{
+                scales:{
+                    yAxes:[{
+                            ticks:{
+                                beginAtZero:true
+                            }
+                    }]
+                }
+            }
+        });
+    </script>
