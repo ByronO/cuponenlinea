@@ -3,6 +3,9 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <title>Java Smart Home Simulator</title>
+
+  <a href="?controlador=Empresa&accion=insertar"> Inicio </a>
+    <a href="?controlador=Reportes&accion=vistaprincipalRankeo"> Ranking </a>
   
 <!-- Latest compiled and minified CSS -->
 </head>
@@ -58,7 +61,7 @@ $(function () {
             tooltip: {
                 formatter: function() {
                         return '<b>'+ this.series.name +'</b><br/>'+
-                        Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) +'<br/>'+
+                        Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', Date.now()) +'<br/>'+
                         Highcharts.numberFormat(this.y, 2);
                 }
             },
@@ -73,7 +76,7 @@ $(function () {
                 data: (function() {
                    var data = [];
                    <?php foreach($vars['rankeomasvendidosseguncosto'] as $key => $value){?>
-                    data.push([<?php echo $value->getcuponid()?>,<?php echo $value->getcuponprecio()?>]);
+                    data.push(['<?php echo $value->getcuponnombre()?>',<?php echo $value->getcuponprecio()?>]);
                     <?php 
                      } ?>
                                     return data;

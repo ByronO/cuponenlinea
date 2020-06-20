@@ -19,6 +19,7 @@
             <?php } ?>
     </head>
     <body>
+        <a href="?controlador=Empresa&accion=insertar"> Inicio </a>
         <a href="?controlador=Reportes&accion=RankeoporCostoDescVista"> Ranking por costo </a>
         <a href="?controlador=Reportes&accion=Rankeomasvendidosseguncosto"> Ranking cupones mas vendidos </a>
         <a href="?controlador=Reportes&accion=Rankeomasvendidoshoy"> Ranking cupones mas vendidos hoy </a>
