@@ -20,10 +20,15 @@
     </head>
     <body>
         <a href="?controlador=Empresa&accion=insertar"> Inicio </a>
+        <br>
         <a href="?controlador=Reportes&accion=RankeoporCostoDescVista"> Ranking por costo </a>
+        <br>
         <a href="?controlador=Reportes&accion=Rankeomasvendidosseguncosto"> Ranking cupones mas vendidos </a>
+        <br>
         <a href="?controlador=Reportes&accion=Rankeomasvendidoshoy"> Ranking cupones mas vendidos hoy </a>
+        <br>
         <a href="?controlador=Reportes&accion=Rankeomasvendidossemana"> Ranking cupones mas vendidos en la semana </a>
+        <br>
         <a href="?controlador=Reportes&accion=Rankeomasvisitados"> Ranking categorias más visitados</a>
 
         

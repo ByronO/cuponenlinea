@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 class ReportesControlador{
     
     private $vista;
@@ -28,6 +28,16 @@ class ReportesControlador{
 
     }//
 
+    public function RankeoComprasRealizadasCliente(){
+        require rutaData.'reportesData.php';
+        $reportesData = new reportesData();
+        
+        $data['rankeoporComprasRealizadas'] = $reportesData->obtenerComprasId($_SESSION['count']);
+        $data['rankeoporComprasRealizadasCategoria'] = $reportesData->obtenerComprasCategoriaId($_SESSION['count']);
+       $this->vista->mostrar("mostrarRankeocomprascliente.php", $data);
+
+    }//
+
     public function Rankeomasvendidosseguncosto(){
         require rutaData.'reportesData.php';
         $reportesData = new reportesData();
@@ -43,6 +53,7 @@ class ReportesControlador{
         $reportesData = new reportesData();
 
         $data['rankeomasvendidoshoy'] = $reportesData->Rankeomasvendidoshoy();
+        $data['rankeomasvendidoshoytotal'] = $reportesData->RankeoTotalGanancia();
         
        $this->vista->mostrar("mostrarRankeomasvendidoshoy.php", $data);
 

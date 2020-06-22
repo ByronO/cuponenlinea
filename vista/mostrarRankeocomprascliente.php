@@ -3,8 +3,7 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <title>Java Smart Home Simulator</title>
-    <a href="?controlador=Empresa&accion=insertar"> Inicio </a>
-    <a href="?controlador=Reportes&accion=vistaprincipalRankeo"> Ranking </a>
+  <a href="?controlador=Cliente&accion=inicio"> Regresar </a>
   
 <!-- Latest compiled and minified CSS -->
 </head>
@@ -44,7 +43,7 @@ $(function () {
                 }
             },
             title: {
-                text: 'Cupones más vendidos Hoy'
+                text: 'Historial Total Compras de Cupones'
             },
             xAxis: {
                 type: 'category',
@@ -74,11 +73,11 @@ $(function () {
                 enabled: true
             },
             series: [{
-                name: 'Ranking por Costo',
+                name: 'Ranking por Cantidad',
                 data: (function() {
                    var data = [];
-                   <?php foreach($vars['rankeomasvendidoshoy'] as $key => $value){?>
-                    data.push(['<?php echo $value->getcuponnombre()?>',<?php echo $value->getcuponprecio()?>]);
+                   <?php foreach($vars['rankeoporComprasRealizadas'] as $key => $value){?>
+                    data.push(['<?php echo $value->getcuponid()?>',<?php echo $value->getcantidadcupones()?>]);
                     <?php 
                      } ?>
                                     return data;
@@ -103,7 +102,7 @@ $(function () {
         var chart;
         $('#container1').highcharts({
             chart: {
-                type: 'bar',
+                type: 'line',
                 animation: Highcharts.svg, // don't animate in old IE
                 marginRight: 10,
                 events: {
@@ -113,7 +112,7 @@ $(function () {
                 }
             },
             title: {
-                text: 'Total de Ingresos hasta Hoy'
+                text: 'Historial Compras por Categorias de Cupones'
             },
             xAxis: {
                 type: 'category',
@@ -143,11 +142,11 @@ $(function () {
                 enabled: true
             },
             series: [{
-                name: 'Ranking por Costo',
+                name: 'Ranking por Categoria',
                 data: (function() {
                    var data = [];
-                   <?php foreach($vars['rankeomasvendidoshoytotal'] as $key => $value){?>
-                    data.push(['Total de Ingresos',<?php echo $value->getcuponprecio()?>]);
+                   <?php foreach($vars['rankeoporComprasRealizadasCategoria'] as $key => $value){?>
+                    data.push(['<?php echo $value->getcuponid()?>',<?php echo $value->getcantidadcupones()?>]);
                     <?php 
                      } ?>
                                     return data;
@@ -159,5 +158,6 @@ $(function () {
 });
 //]]>  
 </script>
+
 
 </html>
