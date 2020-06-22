@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <a href="?controlador=Cliente&accion=inicio"> Regresar </a>
 <h1>Ver compras Realizadas</h1>
+<a href="?controlador=Reportes&accion=RankeoComprasRealizadasCliente"> Ver Graficas de Comprar Realizadas </a>
 <?php
     $title = 'Ver compras Realizadas';
 ?>
